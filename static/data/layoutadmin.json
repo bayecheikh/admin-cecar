@@ -1,0 +1,103 @@
+{
+  "role":"admin",
+  "homePage":"/dashboard",
+  "menuItems":[
+    {
+      "icon": "mdi-account-group-outline",
+      "href": "/utilisateurs",
+      "title": "Utilisateurs",
+      "name": "gerer-utilisateurs"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/roles",
+      "title": "Rôles",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/permissions",
+      "title": "Permissions",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/communes",
+      "title": "Communes",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/departements",
+      "title": "Départements",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/regions",
+      "title": "Régions",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/annees",
+      "title": "Années",
+      "name": "gerer-parametres"
+    },
+    
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/bailleurs",
+      "title": "Bailleurs",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/secteurs",
+      "title": "Composantes",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/sous_secteurs",
+      "title": "Secteurs",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/activites",
+      "title": "Activités",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/financement_activites",
+      "title": "Cible Financement par activités - Fin de projet",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/financement_activites_resultats",
+      "title": "Résultats Financements par activités et par trimestres",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/financement_sources",
+      "title": "Cibles Financements par sources - Fin de projet",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/donnee_bases",
+      "title": "Cible annuelle",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-credit-card-outline",
+      "href": "/cible_fin_projets",
+      "title": "Résultats fin de projet",
+      "name": "gerer-parametres"
+    }
+  ]
+ }

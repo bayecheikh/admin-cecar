@@ -1,0 +1,61 @@
+{
+  "role":"admin",
+  "homePage":"/dashboard",
+  "menuItems":[
+    {
+      "icon": "mdi-view-dashboard-outline",
+      "href": "/dashboard",
+      "title": "Tableau de bord",
+      "name":"voir-dashboard"
+    },
+    {
+      "icon": "mdi-account-group-outline",
+      "href": "/utilisateurs",
+      "title": "Utilisateurs",
+      "name": "gerer-utilisateurs"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/roles",
+      "title": "Role",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/permissions",
+      "title": "Permissions",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-account-group-outline",
+      "href": "/beneficiaires",
+      "title": "Bénéficiaires",
+      "name": "gerer-beneficiaires"
+    },
+    {
+      "icon": "mdi-credit-card-outline",
+      "href": "/projets",
+      "title": "Projets",
+      "name": "gerer-projets"
+    },
+    {
+      "icon": "mdi-credit-card-outline",
+      "href": "/typeenquettes",
+      "title": "Enquettes & Analyses",
+      "name": "gerer-enquetes"
+    },
+    {
+      "icon": "mdi-credit-card-outline",
+      "href": "/sectoriels",
+      "title": "Résultats sectoriels",
+      "name": "gerer-sectoriels"
+    },
+    
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/parametres",
+      "title": "Paramétrage",
+      "name": "gerer-parametres"
+    }
+  ]
+ }
