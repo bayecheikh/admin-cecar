@@ -84,7 +84,7 @@
                   ref="sexe_cedeao"
                   outlined dense
                   v-model="modelCedeao.sexe"
-                  :rules="rules.sexe_cedeaoRules"
+                  :rules="sexe_cedeaoRules"
                   maxlength="1"
                   @input="moveToCodeRegion_cedeao($event)"
                 ></v-text-field>
@@ -94,7 +94,7 @@
                   ref="codeRegion_cedeao"
                   outlined dense
                   v-model="modelCedeao.codeRegion"
-                  :rules="rules.codeRegion_cedeaoRules"
+                  :rules="codeRegion_cedeaoRules"
                   maxlength="2"
                   @input="moveToAnnee_cedeao($event)"
                 ></v-text-field>
@@ -104,7 +104,7 @@
                   ref="annee_cedeao"
                   outlined dense
                   v-model="modelCedeao.annee"
-                  :rules="rules.annee_cedeaoRules"
+                  :rules="annee_cedeaoRules"
                   maxlength="4"
                   @input="moveToMois_cedeao($event)"
                 ></v-text-field>
@@ -114,7 +114,7 @@
                   ref="mois_cedeao"
                   outlined dense
                   v-model="modelCedeao.mois"
-                  :rules="rules.mois_cedeaoRules"
+                  :rules="mois_cedeaoRules"
                   maxlength="2"
                   @input="moveToJour_cedeao($event)"
                 ></v-text-field>
@@ -124,7 +124,7 @@
                   ref="jour_cedeao"
                   outlined dense
                   v-model="modelCedeao.jour"
-                  :rules="rules.jour_cedeaoRules"
+                  :rules="jour_cedeaoRules"
                   maxlength="2"
                   @input="moveToCodeGenere_cedeao($event)"
                 ></v-text-field>
@@ -134,7 +134,7 @@
                   ref="codeGenere_cedeao"
                   outlined dense
                   v-model="modelCedeao.codeGenere"
-                  :rules="rules.codeGenere_cedeaoRules"
+                  :rules="codeGenere_cedeaoRules"
                   maxlength="5"
                   @input="moveToCodeControle_cedeao($event)"
                 ></v-text-field>
@@ -144,7 +144,7 @@
                   ref="codeControle_cedeao"
                   outlined dense
                   v-model="modelCedeao.codeControle"
-                  :rules="rules.codeControle_cedeaoRules"
+                  :rules="codeControle_cedeaoRules"
                   maxlength="1"
                 ></v-text-field>
               </v-col>
@@ -259,6 +259,7 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     components: {
+      
     },
     mounted: function() {
       this.getRegions()
@@ -266,7 +267,87 @@ import { mapMutations, mapGetters } from 'vuex'
     computed: {
       ...mapGetters({
       listregions: 'regions/listregions',    
-    })},
+      }),
+      sexe_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
+            if ((this.model.sexe=='' || this.model.sexe=='M') && parseFloat(v)==1) return true;                  
+            if ((this.model.sexe=='' || this.model.sexe=='F') && parseFloat(v)==2) return true;                  
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      codeRegion_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 2) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      annee_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      mois_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 12 && v.length == 2) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      jour_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 31 && v.length == 2) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      codeGenere_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 5) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      codeControle_cedeaoRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 1) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      }
+
+    },
     data: () => ({
       listcommunes:[],
       listdepartements:[],
@@ -466,5 +547,10 @@ import { mapMutations, mapGetters } from 'vuex'
   border-radius: 5px;
   margin-bottom: 26px;
   margin-top: 0px;
+}
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  padding-top: 0px;
+  margin-bottom: 8px;
+  min-width: 300px;
 }
 </style>
