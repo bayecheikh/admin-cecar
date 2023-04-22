@@ -1,6 +1,6 @@
 <template>
   <div class="custom-container mt-5"> 
-    <v-tabs v-model="tab">
+    <!-- <v-tabs v-model="tab">
           <v-tab class="text-normal"> Pavie en chiffre</v-tab>
           <v-tab class="text-normal"> Execution financière par activité</v-tab>
           <v-tab class="text-normal"> Taux d'execution par activité</v-tab>
@@ -35,7 +35,7 @@
       <v-tab-item class="custom-container mt-5"> 
         <financement-composante></financement-composante>
       </v-tab-item>        
-    </v-tabs-items>
+    </v-tabs-items> -->
      
   </div>
 </template>
