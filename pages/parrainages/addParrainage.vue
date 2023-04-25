@@ -11,13 +11,13 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import FormAddInvestissement from '@/components/parrainages/FormAddInvestissement';
+import FormAddParrainage from '@/components/parrainages/FormAddParrainage';
   export default {
     layout: "dashboard",
     components: {
       LeftMenu,
       PageHeader,
-      FormAddInvestissement
+      FormAddParrainage
     },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-investissements')){
@@ -25,31 +25,21 @@ import FormAddInvestissement from '@/components/parrainages/FormAddInvestissemen
       }
     },
     mounted: function() {
-      /* this.$store.dispatch('roles/getList')
-      this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('fournisseurs/getList') */
-      this.$store.dispatch('annees/getList')
-      this.$store.dispatch('monnaies/getList')
-      this.$store.dispatch('dimensions/getList')
       this.$store.dispatch('regions/getList')
-      this.$store.dispatch('structures/getSelectList')
-      this.$store.dispatch('modefinancements/getList')
-      this.$store.dispatch('bailleurs/getList')
-      this.$store.dispatch('piliers/getList')
     },
     data () {
       return {
         headerItems: [
         {
-          text: 'Financements',
+          text: 'Parrainages',
           disabled: false,
-          to: '/investissements',
+          to: '/parrainages',
           exact: true
         },
         {
-          text: 'Nouveau financement',
+          text: 'Nouveaux parrainages',
           disabled: false,
-          to: '/investissements/addinvestissement',
+          to: '/parrainagess/addParrainage',
           exact: true
         }
         

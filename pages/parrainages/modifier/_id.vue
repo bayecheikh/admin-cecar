@@ -5,7 +5,7 @@
   </div> 
   <div class="custom-container mt-5">
     <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
-     <form-update-investissement></form-update-investissement>
+     <form-update-parrainage></form-update-parrainage>
     </v-card>
   </div> 
 </div>
@@ -13,12 +13,12 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import FormUpdateInvestissement from '@/components/parrainages/modifier/FormUpdateInvestissement';
+import FormUpdateParrainage from '@/components/parrainages/modifier/FormUpdateParrainage';
   export default {
     layout: "dashboard",
     components: {
       PageHeader,
-      FormUpdateInvestissement
+      FormUpdateParrainage
     },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-investissements')){
@@ -26,33 +26,24 @@ import FormUpdateInvestissement from '@/components/parrainages/modifier/FormUpda
       }
     },
     mounted: function() {
-      //this.$store.dispatch('roles/getList')
-      /* this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('fournisseurs/getList') */
-      this.$store.dispatch('annees/getList')
-      this.$store.dispatch('monnaies/getList')
-      this.$store.dispatch('dimensions/getList')
+
       this.$store.dispatch('regions/getList')
-      this.$store.dispatch('structures/getSelectList')
-      this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('modefinancements/getList')
-      this.$store.dispatch('bailleurs/getList')
-      this.$store.dispatch('piliers/getList')
+
       
     },
     data () {
       return {
         headerItems: [
         {
-          text: 'Financements',
+          text: 'Parrainages',
           disabled: false,
-          to: '/investissements',
+          to: '/parraianages',
           exact: true
         },
         {
-          text: 'Modification investissement',
+          text: 'Modification parraianage',
           disabled: true,
-          to: '/investissements/94',
+          to: '/parraianages/94',
           exact: true
         }
         

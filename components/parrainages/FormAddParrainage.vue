@@ -425,19 +425,19 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       async changeRegion(value) {
-        console.log(value.departements)
+        console.log(value?.departements)
         this.model.departement= null
         this.model.commune = null
 
         this.listcommunes = []
         this.listdepartements = value?.departements 
-        this.model.region = value.nom_region
+        this.model.region = value?.nom_region
         
       },
       async changeDepartement(value) {    
         this.model.commune = null  
         this.listcommunes = value?.communes 
-        this.model.departement = value.nom_departement
+        this.model.departement = value?.nom_departement
       },
       async changeCommune(value) {   
         this.model.commune = value.nom_commune 
@@ -477,14 +477,35 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let validation = this.$refs.form.validate()
 
+        this.model.numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
         console.log('FormData ++++++ : ',this.model)
-        this.resetInfoElecteur()
 
+        let formData = new FormData();
 
-       /* validation && this.$msasApi.post('/parrainages',formData)
+        formData.append("numero_cedeao",this.model.numero_cedeao)
+        formData.append("prenom",this.model.prenom)
+        formData.append("nom",this.model.nom)
+        formData.append("date_naissance",this.model.date_naissance)
+        formData.append("lieu_naissance",this.model.lieu_naissance)
+        formData.append("taille",this.model.taille)
+        formData.append("sexe",this.model.sexe)
+        formData.append("numero_electeur",this.model.numero_electeur)
+        formData.append("centre_vote",this.model.centre_vote)
+        formData.append("bureau_vote",this.model.bureau_vote)
+        formData.append("numero_cin",this.model.numero_cin)
+        formData.append("telephone",this.model.telephone)
+        formData.append("prenom_responsable",this.model.prenom_responsable)
+        formData.append("nom_responsable",this.model.nom_responsable)
+        formData.append("telephone_responsable",this.model.telephone_responsable)
+        formData.append("region",this.model.region)
+        formData.append("departement",this.model.departement)
+        formData.append("commune",this.model.commune)
+
+       validation && this.$msasApi.post('/parrainages',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
+            this.resetInfoElecteur()
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -492,7 +513,8 @@ import { mapMutations, mapGetters } from 'vuex'
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
-        }); */
+        });
+        
       },
       resetInfoElecteur () {
         this.model.numero_cedeao = ""
@@ -507,6 +529,14 @@ import { mapMutations, mapGetters } from 'vuex'
         this.model.bureau_vote = ""
         this.model.numero_cin = ""
         this.model.telephone = ""
+
+        this.modelCedeao.sexe=""
+        this.modelCedeao.codeRegion =""
+        this.modelCedeao.annee =""
+        this.modelCedeao.mois =""
+        this.modelCedeao.jour =""
+        this.modelCedeao.codeGenere =""
+        this.modelCedeao.codeControle =""
       },
       resetForm () {
         this.$refs.form.reset()

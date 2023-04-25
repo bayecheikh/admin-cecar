@@ -3,9 +3,9 @@
   <div class="custom-container bg-title-grey">
       <page-header :items="headerItems" class=""></page-header>  
   </div> 
-  <div class="custom-container mt-5">
+  <div class="custom-container mt-0">
     <v-card class="container" flat>  
-      <table-investissement></table-investissement>
+      <table-parrainage></table-parrainage>
     </v-card>
   </div> 
 </div>
@@ -13,32 +13,29 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import TableInvestissement from '@/components/investissements/TableInvestissement'
+import TableParrainage from '@/components/parrainages/TableParrainage'
 import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-investissements')){
-        return redirect('/')
+       // return redirect('/')
       }
     },
     components: {
       PageHeader,
-      TableInvestissement
+      TableParrainage
     },
-    mounted: function() {
-      /* this.$store.dispatch('roles/getList')
-      this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('fournisseurs/getList') */
+    mounted: function() {     
     },
     data () {
       return {
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des financements',
+            text: 'Liste des parrainages',
             disabled: true,
-            to: '/investissements',
+            to: '/parrainages',
             exact: true
           }
         ]

@@ -19,7 +19,7 @@ import { mapActions} from 'vuex'
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-investissements')){
-        return redirect('/')
+       // return redirect('/')
       }
     },
     components: {

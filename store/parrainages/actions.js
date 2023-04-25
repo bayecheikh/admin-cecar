@@ -7,19 +7,7 @@ export default {
     async getDetail({commit},payload){
         await commit('initdetail', payload)
     },
-    async deleteinvestissement({commit,dispatch,state},payload){
+    async deleteparrainage({commit,dispatch,state},payload){
         await commit('removeItem',payload)     
-    },
-    async getTotalPage({commit},payload){
-        await commit('inittotalpage', payload)
-    },
-    async getPerPage({commit},payload){
-        await commit('initperpage', payload)
-    },
-    async getCurrentPage({commit},payload){
-        await commit('initcurrentpage', payload)
-    },
-    async getDataSearch({commit},payload){
-        await commit('initdatasearch', payload)
-    },
+    }
 }

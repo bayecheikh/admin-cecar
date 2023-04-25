@@ -12,7 +12,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
-    title: 'REWMI',
+    title: 'CCAR',
     htmlAttrs: {
       lang: 'fr'
     },
@@ -40,8 +40,8 @@ export default {
     "~/plugins/google-maps",
     "~/plugins/vjsf",
     {
-        src: '~/plugins/amchart.js',
-        ssr: false
+      src: '~/plugins/amchart.js',
+      ssr: false
     }
   ],
 
