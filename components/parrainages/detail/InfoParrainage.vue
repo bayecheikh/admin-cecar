@@ -47,8 +47,8 @@
               <div class="col-md-4 my-0 py-0" v-if="detailparrainage.region">
                   <p class="info-profil"><span>Région : </span>{{detailparrainage.region}}</p>
               </div>
-              <div class="col-md-4 my-0 py-0" v-if="detailparrainage.département">
-                  <p class="info-profil"><span>Département : </span>{{detailparrainage.département}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailparrainage.departement">
+                  <p class="info-profil"><span>Département : </span>{{detailparrainage.departement}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailparrainage.commune">
                   <p class="info-profil"><span>Commune : </span>{{detailparrainage.commune}}</p>

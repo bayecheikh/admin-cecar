@@ -4,7 +4,7 @@
     <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Rechercher un parrainage"
+        label="Rechercher"
         outlined
         rounded
         dense

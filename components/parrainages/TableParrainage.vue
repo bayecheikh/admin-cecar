@@ -1,16 +1,6 @@
 <template>
 <div>
-  <v-card-title class="col-6">
-    <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Rechercher"
-        outlined
-        rounded
-        dense
-        hide-details
-      ></v-text-field>
-</v-card-title>
+  
 <v-data-table
   :headers="headers"
   :items="listparrainages"
@@ -18,7 +8,7 @@
   item-key="id"
   items-per-page="5"
   class="flat pt-4"
-  :loading="listparrainages.length?false:true" 
+  :loading="progress"
   loading-text="Loading... Please wait"
   :rows-per-page-items="[10,20,30,40,50]"
   hide-default-footer
@@ -26,10 +16,20 @@
 >
   <template v-slot:top="{ pagination, options, updateOptions }">
     <v-row class="mb-1 border-bottom-small">
-      <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
-       
+      <v-col md="6" sm="12" lg="6" class="pb-0">
+        <v-card-title class="col-6">
+          <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Rechercher"
+              outlined
+              rounded
+              dense
+              hide-details
+            ></v-text-field>
+      </v-card-title>
       </v-col>
-      <v-col md="6" sm="12" lg="6" class="pt-0 pb-2">  
+      <v-col md="6" sm="12" lg="6" class="pt-0">  
         <v-data-footer 
           :pagination="pagination" 
           :options="options"
@@ -177,6 +177,7 @@ import { mapMutations, mapGetters } from 'vuex'
       region:null,
 
       valid: true,
+      loading:true,
       
       selectedregion:[],
 
@@ -263,6 +264,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       getResult(param) {
         this.loading = true
+        this.progress=true
 
         //let validation = this.$refs.form.validate()
 
@@ -295,12 +297,15 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log('Donées reçus ++++++: ',response.data.data)
            // this.listparrainages=response.data.data
             this.$store.commit('parrainages/initlist',response.data.data)
+            this.loading = false;
+            this.progress=false
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
           }).finally(() => {
             this.loading = false;
+            this.progress = false;
             console.log('Requette envoyé ')
         });
         
@@ -388,23 +393,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.dialog=true
         this.activeItem=item
       },
-    },
-    data: () => ({
-     dialog: false,
-      progress:true,
-      selected: [],
-      search:'',
-      items:[],
-      page: 1,
-      totalPages:1,
-      pageCount: '',
-      itemsPerPage:'',
-      path:'',
-      totalItems:0,
-      options: {},
-      selectedItem:0,
-      activeItem:{}
-    })
+    }
   }
 </script>
 <style scoped>

@@ -1,19 +1,25 @@
 <template>
   <div>
-  <div class="custom-container bg-title-grey">
-      <page-header :items="headerItems" class=""></page-header>  
-  </div> 
-  <div class="custom-container mt-0">
-    <v-card class="container" flat>  
-      <table-parrainage></table-parrainage>
-    </v-card>
-  </div> 
+    <div class="custom-container bg-title-grey">
+        <page-header :items="headerItems" class=""></page-header>  
+    </div> 
+    <div class="custom-container mt-0">
+      <v-card class="container" flat>  
+        <recherche-avance></recherche-avance>
+      </v-card>
+    </div> 
+    <div class="custom-container mt-0">
+      <v-card class="container" flat>  
+        <table-parrainage></table-parrainage>
+      </v-card>
+    </div> 
 </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader';
 import TableParrainage from '@/components/parrainages/TableParrainage'
+import RechercheAvance from '@/components/parrainages/RechercheAvance'
 import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
@@ -24,9 +30,8 @@ import { mapActions} from 'vuex'
     },
     components: {
       PageHeader,
-      TableParrainage
-    },
-    mounted: function() {     
+      TableParrainage,
+      RechercheAvance
     },
     data () {
       return {

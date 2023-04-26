@@ -1,50 +1,50 @@
 <template>
   <div>
-  <div class="custom-container mt-3">
-    <v-card class="container pl-5 pt-5 pb-10 pr-5" flat>  
-      <form-add-investissement></form-add-investissement>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-0">
+    <v-card class="container" flat>  
+      <form-add-parrainage></form-add-parrainage>
     </v-card>
   </div> 
+ 
 </div>
 </template>
 
 <script>
-import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import FormAddParrainage from '@/components/parrainages/FormAddParrainage';
+import TableParrainage from '@/components/parrainages/TableParrainage'
+import FormAddParrainage from '@/components/parrainages/FormAddParrainage'
+import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
-    components: {
-      LeftMenu,
-      PageHeader,
-      FormAddParrainage
-    },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-investissements')){
        // return redirect('/')
       }
     },
-    mounted: function() {
-      this.$store.dispatch('regions/getList')
+    components: {
+      PageHeader,
+      TableParrainage,
+      FormAddParrainage
     },
     data () {
       return {
+        selectedItem: 0,
         headerItems: [
-        {
-          text: 'Parrainages',
-          disabled: false,
-          to: '/parrainages',
-          exact: true
-        },
-        {
-          text: 'Nouveaux parrainages',
-          disabled: false,
-          to: '/parrainagess/addParrainage',
-          exact: true
-        }
-        
+          {
+            text: 'Liste des parrainages',
+            disabled: false,
+            to: '/parrainages',
+            exact: true
+          },{
+            text: 'Ajouter des parrainages',
+            disabled: true,
+            to: '/parrainages',
+            exact: true
+          }
         ]
-
       }
     }
 
@@ -52,5 +52,8 @@ import FormAddParrainage from '@/components/parrainages/FormAddParrainage';
 </script>
 
 <style scoped>
-
+.bg-title {
+  background-color: rgb(227, 235, 243) !important;
+  color: #6F96AA;
+}
 </style>
