@@ -106,6 +106,11 @@
               Exporter en CSV
             </v-btn>
           </v-col>
+          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
+            <v-btn depressed class="mr-4 text-white" color="#1B73E8" @click="GotoAddParrainage">
+              Ajouter des parrainages
+            </v-btn>
+          </v-col>
           
         </v-row>
 
@@ -380,6 +385,7 @@ import { mapMutations, mapGetters } from 'vuex'
           },
         ]
       }
+      
 
     },
     data: () => ({
@@ -631,6 +637,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       resetValidationForm () {
         this.$refs.form.resetValidation()
+      },
+      GotoAddParrainage() {
+        this.$router.push('/parrainages/addParrainage');
       }
     }
   }
