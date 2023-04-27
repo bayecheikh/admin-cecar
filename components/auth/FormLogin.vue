@@ -111,7 +111,7 @@ import layoutchargeclientel from '@/static/data/layoutchargeclientel'
     left: 0;
     content: "";
     z-index: 0;
-    background-image: url('@/static/background.jpg');
+    /* background-image: url('@/static/background.jpg'); */
     background-size: cover;
     background-position: top;
   }
