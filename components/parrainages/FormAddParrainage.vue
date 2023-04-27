@@ -529,8 +529,8 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeRegion(value) {
         console.log(value?.departements)
-        this.model.departement= null
-        this.model.commune = null
+        this.model.departement= ""
+        this.model.commune = ""
 
         this.listcommunes = []
         this.listdepartements = value?.departements 
@@ -538,7 +538,7 @@ import { mapMutations, mapGetters } from 'vuex'
         
       },
       async changeDepartement(value) {    
-        this.model.commune = null  
+        this.model.commune = "" 
         this.listcommunes = value?.communes 
         this.model.departement = value?.nom_departement
       },
@@ -623,7 +623,7 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
-       validation && this.$msasApi.post('/parra55inages',formData)
+       validation && this.$msasApi.post('/parrainages',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})

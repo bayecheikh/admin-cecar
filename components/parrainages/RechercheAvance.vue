@@ -99,15 +99,15 @@
         </v-row>
         <v-row class="d-flex justify-content-between">
           <v-col md="3" lg="3" sm="12">
-            <v-btn color="primary" depressed  outlined @click="submitForm">
+            <v-btn :loading="loadingRecherche" color="primary" depressed  outlined @click="submitForm">
               Lancer la recherche
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
-            <v-btn text @click="resetInfoElecteur" rounded color="green">Afficher tout</v-btn>
+            <v-btn :loading="loadingTout" text @click="resetInfoElecteur" rounded color="green">Afficher tout</v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
-            <v-btn depressed  color="secondary" outlined @click="ExportCSV">
+            <v-btn :loading="loadingExport" depressed  color="secondary" outlined @click="ExportCSV">
               Exporter tout en excel
             </v-btn>
           </v-col>
@@ -403,6 +403,9 @@ import { mapMutations, mapGetters } from 'vuex'
 
       valid: true,
       loading:false,
+      loadingRecherche:false,
+      loadingTout:false,
+      loadingExport:false,
       
       selectedregion:[],
 
@@ -471,8 +474,8 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeRegion(value) {
         console.log(value?.departements)
-        this.model.departement= null
-        this.model.commune = null
+        this.model.departement= ''
+        this.model.commune = ''
 
         this.listcommunes = []
         this.listdepartements = value?.departements 
@@ -480,7 +483,7 @@ import { mapMutations, mapGetters } from 'vuex'
         
       },
       async changeDepartement(value) {    
-        this.model.commune = null  
+        this.model.commune = "" 
         this.listcommunes = value?.communes 
         this.model.departement = value?.nom_departement
       },
@@ -518,7 +521,7 @@ import { mapMutations, mapGetters } from 'vuex'
         }
       },
       submitForm () {
-        this.loading = true
+        this.loadingRecherche = true
 
         let validation = this.$refs.form.validate()
 
@@ -542,7 +545,7 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("prenom_responsable",this.model.prenom_responsable)
         formData.append("nom_responsable",this.model.nom_responsable)
         formData.append("telephone_responsable",this.model.telephone_responsable)
-        formData.append("region",this.model.region)
+        formData.append("region",this.model.region?this.model.region:'')
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
@@ -556,13 +559,14 @@ import { mapMutations, mapGetters } from 'vuex'
               console.log('Code error ++++++: ', error)
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
           }).finally(() => {
-            this.loading = false;
+            this.loadingRecherche = false;
+            this.loadingTout = false;
             console.log('Requette envoyé ')
         });
         
       },
       ExportCSV () {
-        this.loading = true
+        this.loadingExport = true
 
         let validation = this.$refs.form.validate()
 
@@ -609,12 +613,13 @@ import { mapMutations, mapGetters } from 'vuex'
               console.log('Code error ++++++: ', error)
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
           }).finally(() => {
-            this.loading = false;
+            this.loadingExport = false;
             console.log('Requette envoyé ')
         });
         
       },
       resetInfoElecteur () {
+        this.loadingTout = true
         this.model.numero_cedeao = ""
         this.model.prenom = ""
         this.model.nom = ""
@@ -627,6 +632,9 @@ import { mapMutations, mapGetters } from 'vuex'
         this.model.bureau_vote = ""
         this.model.numero_cin = ""
         this.model.telephone = ""
+        this.model.region = ""
+        this.model.departement= ""
+        this.model.commune = ""
 
         this.modelCedeao.sexe=""
         this.modelCedeao.codeRegion =""

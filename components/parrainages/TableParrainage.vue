@@ -18,7 +18,17 @@
     <v-row class="mb-1 border-bottom-small">
       <v-col md="6" sm="12" lg="6" class="pb-0">
         <v-card-title class="col-6">
-          <v-text-field
+          <p class="info-profil"><span>Nombre total de parraianage :</span>
+            <v-chip
+              :color="'green'"
+              small
+              outlined
+              class="my-1 mr-1"
+            >
+            {{ listparrainages.length.toLocaleString() }}
+            </v-chip>
+          </p>
+         <!--  <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
               label="Rechercher"
@@ -26,7 +36,7 @@
               rounded
               dense
               hide-details
-            ></v-text-field>
+            ></v-text-field> -->
       </v-card-title>
       </v-col>
       <v-col md="6" sm="12" lg="6" class="pt-0">  
