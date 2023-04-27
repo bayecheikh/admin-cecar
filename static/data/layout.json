@@ -12,13 +12,13 @@
       "icon": "mdi-account-group-outline",
       "href": "/parrainages",
       "title": "Liste des parrainages",
-      "name": "gerer-utilisateurs"
+      "name": "gerer-parrainages"
     },
     {
       "icon": "mdi-account-group-outline",
       "href": "/parrainages/addParrainage",
       "title": "Ajouter des parrainages",
-      "name": "gerer-utilisateurs"
+      "name": "ajouter-parrainage"
     },
     {
       "icon": "mdi-account-group-outline",
