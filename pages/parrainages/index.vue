@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="custom-container bg-title-grey">
+    <!-- <div class="custom-container bg-title-grey">
         <page-header :items="headerItems" class=""></page-header>  
-    </div> 
-    <div class="custom-container mt-0">
+    </div>  -->
+    <div class="custom-container mt-5">
       <v-card class="container" flat>  
         <recherche-avance></recherche-avance>
       </v-card>

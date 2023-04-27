@@ -186,11 +186,11 @@
     background-color: white;
 }
 .highlighted{
-  color: #ff8502 !important;
-  background: #ff850200;
+  color: #fb4c07 !important;
+  background: #fb4c0700;
 }
 .highlighted .v-list-item__icon .v-icon{
-  color: #ff8502 !important;
+  color: #fb4c07 !important;
 }
 .text-menu{
   font-size: 13px !important;
