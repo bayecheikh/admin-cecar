@@ -150,7 +150,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="6" lg="6" sm="12">
                 <v-text-field
                   label="Prénom"
                   outlined dense
@@ -158,7 +158,7 @@
                   :rules="rules.prenomRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="6" lg="6" sm="12">
                 <v-text-field
                   label="Nom"
                   outlined dense
@@ -166,15 +166,16 @@
                   :rules="rules.nomRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="6" lg="6" sm="12">
                 <v-text-field
                   label="Date de naissance"
                   outlined dense
-                  v-model="model.date_naissance"
+                  v-model="getDateNaissance"
                   :rules="rules.date_naissanceRules"
+                  readonly
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="6" lg="6" sm="12">
                 <v-text-field
                   label="Lieu de naissance"
                   outlined dense
@@ -182,7 +183,7 @@
                   :rules="rules.lieu_naissanceRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="6" lg="6" sm="12">
                 <v-text-field
                   label="Taille"
                   outlined dense
@@ -190,13 +191,22 @@
                   :rules="rules.tailleRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
-                <v-text-field
-                  label="Sexe"
-                  outlined dense
-                  v-model="model.sexe"
-                  :rules="rules.sexeRules"
-                ></v-text-field>
+
+              <v-col md="6" lg="6" sm="12">
+                <v-radio-group
+                  v-model="getSexe"
+                  row
+                  readonly
+                >
+                  Sexe : &nbsp; &nbsp;<v-radio
+                    label="Masculin"
+                    value="M"
+                  ></v-radio>
+                  <v-radio
+                    label="Feminin"
+                    value="F"
+                  ></v-radio>
+                </v-radio-group>
               </v-col>
               <v-col md="4" lg="4" sm="12">
                 <v-text-field
@@ -224,13 +234,46 @@
                 ></v-text-field>
               </v-col>
             </v-row>
+            <p>Numéro CIN</p>
             <v-row>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="1" lg="1" sm="1">
                 <v-text-field
-                  label="Numéro CIN"
+                  ref="sexe_cin"
                   outlined dense
-                  v-model="model.numero_cin"
-                  :rules="rules.numero_cinRules"
+                  v-model="modelCin.sexe"
+                  :rules="sexe_cinRules"
+                  maxlength="1"
+                  @input="moveToCodeCentre_cin($event)"
+                ></v-text-field>
+              </v-col>
+              <v-col md="3" lg="3" sm="3">
+                <v-text-field
+                  ref="codeCentre_cin"
+                  outlined dense
+                  v-model="modelCin.codeCentre"
+                  :rules="codeCentre_cinRules"
+                  maxlength="3"
+                  @input="moveToAnnee_cin($event)"
+                ></v-text-field>
+              </v-col>
+              <v-col md="4" lg="4" sm="4">
+                <v-text-field
+                  ref="annee_cin"
+                  outlined dense
+                  v-model="modelCin.annee"
+                  :rules="annee_cinRules"
+                  maxlength="4"
+                  @input="moveToCodeGenere_cin($event)"
+                ></v-text-field>
+              </v-col>
+  
+              <v-col md="4" lg="4" sm="4">
+                <v-text-field
+                  ref="codeGenere_cin"
+                  outlined dense
+                  v-model="modelCin.codeGenere"
+                  :rules="codeGenere_cinRules"
+                  maxlength="5"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -245,7 +288,7 @@
               </v-col>
             </v-row>
 
-          <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
+          <v-btn :loading="loading" class="mr-4 text-white" color="#1B73E8" @click="submitForm">
             Enregistrer
           </v-btn>
         </div>     
@@ -263,6 +306,7 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     mounted: function() {
       this.getRegions()
+      this.$refs.sexe_cedeao.focus()
     },
     computed: {
       ...mapGetters({
@@ -345,6 +389,58 @@ import { mapMutations, mapGetters } from 'vuex'
             return 'Veuillez saisir un chiffre valide';
           },
         ]
+      },
+      //CIN RULES
+      sexe_cinRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
+            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe==1) && parseFloat(v)==1) return true;                  
+            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe==2) && parseFloat(v)==2) return true;                  
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      codeCentre_cinRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 3) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      annee_cinRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      codeGenere_cinRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 5) return true;                  
+                                              
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
+      getDateNaissance() {
+          return this.modelCedeao.jour+'/'+this.modelCedeao.mois+'/'+this.modelCedeao.annee
+      },  
+      getSexe() {
+          return this.modelCedeao.sexe==1?"M":"F"
       }
 
     },
@@ -358,6 +454,7 @@ import { mapMutations, mapGetters } from 'vuex'
       region:null,
 
       valid: true,
+      loading: false,
       
       selectedregion:[],
 
@@ -369,6 +466,12 @@ import { mapMutations, mapGetters } from 'vuex'
         jour:"",
         codeGenere:"",
         codeControle:"",
+      },
+      modelCin:{
+        sexe:"",
+        codeCentre:"",
+        annee:"",
+        codeGenere:""
       },
       model: {
         numero_cedeao:'',
@@ -472,12 +575,31 @@ import { mapMutations, mapGetters } from 'vuex'
           this.$refs.codeControle_cedeao.focus()
         }
       },
+
+      //CIN function move
+      moveToCodeCentre_cin(value) {
+        if (value.length == 1) {
+          this.$refs.codeCentre_cin.focus()
+        }
+      },
+      moveToAnnee_cin(value) {
+        if (value.length == 3) {
+          this.$refs.annee_cin.focus()
+        }
+      },
+      moveToCodeGenere_cin(value) {
+        if (value.length == 4) {
+          this.$refs.codeGenere_cin.focus()
+        }
+      },
+      
       submitForm () {
         this.loading = true
 
         let validation = this.$refs.form.validate()
 
         this.model.numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
+        this.model.numero_cin= this.modelCin.sexe+this.modelCin.codeCentre+this.modelCin.annee+this.modelCin.codeGenere
         console.log('FormData ++++++ : ',this.model)
 
         let formData = new FormData();
@@ -485,10 +607,10 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("numero_cedeao",this.model.numero_cedeao)
         formData.append("prenom",this.model.prenom)
         formData.append("nom",this.model.nom)
-        formData.append("date_naissance",this.model.date_naissance)
+        formData.append("date_naissance",this.modelCedeao.jour+'/'+this.modelCedeao.mois+'/'+this.modelCedeao.annee)
         formData.append("lieu_naissance",this.model.lieu_naissance)
         formData.append("taille",this.model.taille)
-        formData.append("sexe",this.model.sexe)
+        formData.append("sexe",this.modelCedeao.sexe==1?"M":"F")
         formData.append("numero_electeur",this.model.numero_electeur)
         formData.append("centre_vote",this.model.centre_vote)
         formData.append("bureau_vote",this.model.bureau_vote)
@@ -501,7 +623,7 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
-       validation && this.$msasApi.post('/parrainages',formData)
+       validation && this.$msasApi.post('/parra55inages',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -537,6 +659,11 @@ import { mapMutations, mapGetters } from 'vuex'
         this.modelCedeao.jour =""
         this.modelCedeao.codeGenere =""
         this.modelCedeao.codeControle =""
+
+        this.modelCin.sexe=""
+        this.modelCin.codeCentre =""
+        this.modelCin.annee =""
+        this.modelCin.codeGenere =""
       },
       resetForm () {
         this.$refs.form.reset()

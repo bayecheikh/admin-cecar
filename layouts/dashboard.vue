@@ -7,7 +7,7 @@
       color="#fff"
     >
       <v-sheet
-        color="#00173F"
+        color="#000"
         class="pa-2"
         style="height:64px;"
       >
@@ -40,7 +40,7 @@
     </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar elevation="0" app color="#00173F">
+    <v-app-bar elevation="0" app color="#000">
       <v-app-bar-nav-icon @click="drawer = !drawer" class="icon-white"></v-app-bar-nav-icon>
 
       <v-toolbar-title class="custom-top-title pl-12"><!----></v-toolbar-title>
@@ -186,11 +186,11 @@
     background-color: white;
 }
 .highlighted{
-  color: #7E4F25 !important;
-  background: #7E4F2500;
+  color: #ff8502 !important;
+  background: #ff850200;
 }
 .highlighted .v-list-item__icon .v-icon{
-  color: #7E4F25 !important;
+  color: #ff8502 !important;
 }
 .text-menu{
   font-size: 13px !important;

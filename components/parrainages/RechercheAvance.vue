@@ -96,22 +96,26 @@
               :rules="numero_cedeaoRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
-            <v-btn depressed class="mr-4 text-white" color="#1B73E8" @click="submitForm">
+        </v-row>
+        <v-row class="d-flex justify-content-between">
+          <v-col md="3" lg="3" sm="12">
+            <v-btn color="primary" depressed  outlined @click="submitForm">
               Lancer la recherche
             </v-btn>
           </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
-            <v-btn depressed class="mr-4 text-white" color="#1B73E8" @click="ExportCSV">
-              Exporter en CSV
+          <v-col md="3" lg="3" sm="12">
+            <v-btn text @click="resetInfoElecteur" rounded color="green">Afficher tout</v-btn>
+          </v-col>
+          <v-col md="3" lg="3" sm="12">
+            <v-btn depressed  color="secondary" outlined @click="ExportCSV">
+              Exporter tout en excel
             </v-btn>
           </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
-            <v-btn depressed class="mr-4 text-white" color="#1B73E8" @click="GotoAddParrainage">
+          <v-col md="3" lg="3" sm="12">
+            <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddParrainage">
               Ajouter des parrainages
             </v-btn>
           </v-col>
-          
         </v-row>
 
       <!-- <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
@@ -631,6 +635,8 @@ import { mapMutations, mapGetters } from 'vuex'
         this.modelCedeao.jour =""
         this.modelCedeao.codeGenere =""
         this.modelCedeao.codeControle =""
+
+        this.submitForm()
       },
       resetForm () {
         this.$refs.form.reset()

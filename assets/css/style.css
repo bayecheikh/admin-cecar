@@ -220,7 +220,7 @@ html {
 }
 .v-navigation-drawer--fixed {
   position: fixed;
-  /* border-right: solid #00173F !important; */
+  /* border-right: solid #000 !important; */
 }
 
 .bg-marron {
@@ -232,11 +232,11 @@ html {
   min-height: 140px;
 }
 .bg-marron:hover {
-  background-color: #7e4f25;
+  background-color: #ff8502;
   color: #fff !important;
 }
 .bg-marron-2 {
-  background-color: #7e4f2512;
+  background-color: #ff850212;
   border-radius: 5px;
   padding: 30px;
   color: grey;
@@ -245,7 +245,7 @@ html {
 }
 .bg-marron-2:hover {
   border: solid 2px;
-  border-color: #7e4f25;
+  border-color: #ff8502;
 }
 .color-white{
   color: #fff;
@@ -255,10 +255,10 @@ html {
   padding: 20px;
 }
 .text-primary{
-  color: #00173fa3 !important;
+  color: #000a3 !important;
 }
 .text-secondary{
-  color: #7e4f25 !important;
+  color: #ff8502 !important;
 }
 .border-right-solid{
   border-right: solid 2px gray;
