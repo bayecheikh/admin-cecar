@@ -1,6 +1,6 @@
-<template>
+<!-- <template>
   <div class="custom-container mt-5"> 
-    <!-- <v-tabs v-model="tab">
+    <v-tabs v-model="tab">
           <v-tab class="text-normal"> Pavie en chiffre</v-tab>
           <v-tab class="text-normal"> Execution financière par activité</v-tab>
           <v-tab class="text-normal"> Taux d'execution par activité</v-tab>
@@ -35,10 +35,36 @@
       <v-tab-item class="custom-container mt-5"> 
         <financement-composante></financement-composante>
       </v-tab-item>        
-    </v-tabs-items> -->
+    </v-tabs-items>
      
   </div>
-</template>
+</template> -->
+<template>
+  <div> 
+      <div class="custom-container mt-5">
+        <v-row class="d-flex justify-content-between">
+          <v-col md="4" sm="12" lg="4" class="">
+            <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+              <h4 class="">NOMBRE TOTAL DE PARRAINAGES</h4>
+              <h1 class="">30 000<!-- {{ dashboardData && Number(dashboardData.financePrevus).toLocaleString() || 0}} --></h1>
+            </div>
+          </v-col>
+          <v-col md="4" sm="12" lg="4" class="">
+            <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+              <h4 class="">HOMMES</h4>
+              <h1 class="">15 000</h1>
+            </div>
+          </v-col>
+          <v-col md="4" sm="12" lg="4" class="">
+            <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+              <h4 class="">FEMME</h4>
+              <h1 class="">15 000</h1>
+            </div>
+          </v-col>
+        </v-row>  
+      </div> 
+    </div>
+  </template>
 
 <script>
 import LeftMenu from '@/components/LeftMenu';
