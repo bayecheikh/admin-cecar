@@ -7,12 +7,12 @@
       color="#fff"
     >
       <v-sheet
-        color="#000"
+        color="#fff"
         class="pa-2"
         style="height:64px;"
       >
         <nuxt-link class="customTopNav flex text-sm-left" to="/">
-        <img src="@/static/logo-der-blanc.png" width="180" alt="Espace Senegal Service">
+        <img src="@/static/logorewmi.png" width="50" alt="Espace Senegal Service">
       </nuxt-link>
       </v-sheet>
 

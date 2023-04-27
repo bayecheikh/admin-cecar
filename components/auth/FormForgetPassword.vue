@@ -8,7 +8,7 @@
               <v-card-text>
                 <Notification :message="message" :color="color" v-if="message"/>
                 <div class="layout column align-center py-5">
-                  <img src="@/static/logo.png" alt="Espace Senegal Service" width="150" height="">
+                  <img :width="50" src="@/static/logorewmi.png" alt="Espace Senegal Service"  height="">
                   <p class="flex my-8 custom-font-mark">Mot de passe oublié</p>
                 </div>
                 <v-form class="row text-align-center pt-0"  v-model="valid" ref="form" lazy-validation>
