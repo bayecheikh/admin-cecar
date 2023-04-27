@@ -29,10 +29,10 @@
   </div>
 </template>
 <script>
-import Tableparrainage from '@/components/parrainages/Tableparrainage'
+import Tableparrainage from '@/components/parrainages/TableParrainage'
   export default {
     components: {
-      Tableparrainage
+      TableParrainage
     },
     data: () => ({
       tab: null,
@@ -43,7 +43,7 @@ import Tableparrainage from '@/components/parrainages/Tableparrainage'
     }),
     methods:{
       goToAddparrainage() {      
-        this.$router.push('/parrainages/addparrainage');
+        this.$router.push('/parrainages/addParrainage');
       },
     }
   }
