@@ -2,56 +2,54 @@
   <v-card class="mx-auto mb-5 pl-10 pt-0 pr-10 pb-5 my-10 border-grey">
     <div class="custom-container mt-5">
       <v-row justify="center" class="d-flex justify-content-between">
-        <v-col
-          lg="3"
-          md="3"
-          sm="12"
-        >
-        <v-autocomplete
-                v-model="annee"
-                :items="listannees"
-                outlined
-                dense
-                label="Année"
-                item-text="libelle"
-                item-value="libelle"
-                @change="changeannee"
-              >
-          </v-autocomplete>
-        </v-col>
-        <v-col lg="3" md="3" sm="12">
+        <v-col lg="3" md="3" sm="12" >
             <v-autocomplete
-              v-model="trimestre"
-              :items="listmonnaies"
+              v-model="model.region"
+              :rules="rules.regionRules"
+              :items="listregions"
               outlined
               dense
-              label="Trimestre"
-              item-text="libelle"
-              item-value="libelle"
-              @change="changetrimestre"
-              >
+              label="Région"
+              item-text="nom_region"
+              item-value="nom_region"
+              return-object
+              @change="changeRegion"
+            >
             </v-autocomplete>
-        </v-col>
-        <v-col
+          </v-col>
+          <v-col lg="3" md="3" sm="12" >
+            <v-autocomplete
+              v-model="model.departement"
+              :rules="rules.departementRules"
+              :items="listdepartements"
+              outlined
+              dense
+              label="Departement"
+              item-text="nom_departement"
+              item-value="nom_departement"
+              return-object
+              @change="changeDepartement"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="3" md="3" sm="12">
+            <v-autocomplete
+              v-model="model.commune"
+              :rules="rules.communeRules"
+              :items="listcommunes"
+              outlined
+              dense
+              label="Commune"
+              item-text="nom_commune"
+              item-value="nom_commune"
+              return-object
+              @change="changeCommune"
+            >
+            </v-autocomplete>
+          </v-col>
+            <v-col
               lg="3"
               md="3"
-              sm="12"
-            >
-            <v-autocomplete
-                    v-model="secteur"
-                    :items="listcomposantes"
-                    outlined
-                    dense
-                    label="Composante"
-                    item-text="libelle"
-                    item-value="libelle"
-                    @change="changesecteur"
-                  >
-              </v-autocomplete>
-            </v-col>
-            <v-col
-              lg="2"
-              md="2"
               sm="12"
               
             >
@@ -60,64 +58,29 @@
       </v-row>
       <v-row class="d-flex justify-content-between">
         <v-col md="12" sm="12" lg="12" class="text-sm-center bg-grey-2 my-5">
-          <h2 class="text-grey">Cumul par composante</h2>
+          <h2 class="text-grey">Répartition des parraianages</h2>
         </v-col>
         <v-col md="12" sm="12" lg="12" class="pl-8">
           <v-row class="d-flex justify-content-between">
             <v-col md="4" sm="12" lg="4" class="">
               <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.1.2 : Nombre d’emplois directs créés ou consolidés dans les chaînes de valeur agricoles et artisanales dont 50% pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_1_2?model.Ind_1_2.toLocaleString():0}}</h2>
+                <h4 class="">Nombre total de parrainages</h4>
+                <h2 class="text-primary mt-2">{{model.nombre_total?model.nombre_total.toLocaleString():0}}</h2>
               </div>
             </v-col>
             <v-col md="4" sm="12" lg="4" class="">
               <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.R.1.2.1. : Nombre d’entreprises financées dont 50% pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_1_2_1?model.Ind_R_1_2_1.toLocaleString():0}}</h2>
+                <h4 class="">Nombre de parrainages homme</h4>
+                <h2 class="text-primary mt-2">{{model.nombre_homme?model.nombre_homme.toLocaleString():0}}</h2>
               </div>
             </v-col>
             <v-col md="4" sm="12" lg="4" class="">
               <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.R.1.1.2 : Nombre MPME formalisées</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_1_1_2?model.Ind_R_1_1_2.toLocaleString():0}}</h2>
+                <h4 class="">Nombre de parraianages femme</h4>
+                <h2 class="text-primary mt-2">{{model.nombre_femme?model.nombre_femme.toLocaleString():0}}</h2>
               </div>
             </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.R.1.1.1 : Nombre de personnes formées en appui métier et en gestion d’entreprise dont pour 40% pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_1_1_1?model.Ind_R_1_1_1.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.2.2 : Nombre d’emplois décents directs créés et/ou consolidés dans les autres secteurs prioritaires dont pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_2_2?model.Ind_2_2.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind.R.1.2.2 : Volume de financement octroyé (en millions de FCFA) dont 40% destinés aux femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_1_2_2?model.Ind_R_1_2_2.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind. R.2.2.2 : Volume de financement octroyé (en millions de FCFA) dont 40% destinés aux femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_2_2_2?model.Ind_R_2_2_2.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind. R.2.2.1 : Nombre de MPME financées dont 50% pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_2_2_1?model.Ind_R_2_2_1.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
-            <v-col md="4" sm="12" lg="4" class="">
-              <div class="bg-marron-2 mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
-                <h4 class="">Ind. R.2.1.1 : Nombre de MPME bénéficiant d’un accompagnement technique dont 50% pour les femmes</h4>
-                <h2 class="text-primary mt-2">{{model.Ind_R_2_1_1?model.Ind_R_2_1_1.toLocaleString():0}}</h2>
-              </div>
-            </v-col>
+            
           </v-row>
         </v-col>             
       </v-row>             
@@ -133,24 +96,52 @@
         Notification
       },
       mounted: function() {
-        this.getResultatAtteint()
+        /* this.getResultatAtteint()
         this.$store.dispatch('annees/getList')
         this.$store.dispatch('monnaies/getList')
-        this.$store.dispatch('secteurs/getList')
+        this.$store.dispatch('secteurs/getList') */
+        this.getRegions()
+        let  data = {
+        numero_cedeao:'',
+        prenom:'',
+        nom:'',
+        date_naissance:'',
+        lieu_naissance:'',
+        taille:'',
+        sexe:'',
+        numero_electeur:'',
+        centre_vote:'',
+        bureau_vote:'',
+        numero_cin:'',
+        telephone:'',
+        prenom_responsable:'',
+        nom_responsable:'',
+        telephone_responsable:'',
+        region:'',
+        departement:'',
+        commune:''
+      }
+      this.getResult(data)
         
         /* this.$store.dispatch('structures/getList')
         this.$store.dispatch('fournisseurs/getList') */
       },
       computed: {
         ...mapGetters({
-        listannees: 'annees/listannees',
-        listmonnaies: 'monnaies/listmonnaies',
-        listcomposantes: 'secteurs/listsecteurs',
+          listregions: 'regions/listregions', 
+          listparrainages: 'parrainages/listparrainages'
         /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
         liststructures: 'structures/selectliststructures', */
         
       })},
       data: () => ({
+        listcommunes:[],
+      listdepartements:[],
+      listregions:[],
+
+      commune:null,
+      departement:null,
+      region:null,
         annee:'',
         trimestre:'',
         secteur:'',
@@ -164,25 +155,9 @@
         message:null,
                 
         model: {      
-          Ind_1 : '0',
-          Ind_2 : '1000',
-          Ind_1_1 : '10',
-          Ind_2_1 :'50',
-          Ind_R_3_1_1 :'OUI',
-          Ind_R_3_1_2 : 'NON',
-          Ind_R_3_2_1 : '10',
-          Ind_R_3_2_2 :'150',
-  
-          Ind_1_2 :'0',
-          Ind_R_1_2_1 :'120',
-          Ind_R_1_1_2 :'150',
-          Ind_R_1_1_1 :'50',
-          Ind_2_2 :'160',
-          Ind_R_1_2_2 : '90',
-          Ind_R_2_2_2 : '70',
-          Ind_R_2_2_1 :'60', 	
-          Ind_R_1_1_1 :'180', 
-          Ind_R_2_1_1 :'13', 
+          nombre_homme : '0',
+          nombre_femme : '0',
+          nombre_total : '0', 
         },
         resume:{
           annee:'0',
@@ -258,6 +233,89 @@
         imageData:null,
       }),
       methods: {
+        async getRegions(){
+        this.$msasApi.$get('regions')
+        .then(async (response) => { 
+          console.log('Données région reçu+++++++++++',response)
+          this.listregions=response.data
+          }).catch((error) => {
+              console.log('Code error ++++++: ', error?.response?.data?.message)
+          }).finally(() => {
+          console.log('Requette envoyé ')
+        });
+      },
+        getResult(param) {
+        this.loading = true
+        this.progress=true
+
+        //let validation = this.$refs.form.validate()
+
+        //this.model.numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
+        console.log('FormData ++++++ : ',this.model)
+
+        let formData = new FormData();
+
+        formData.append("numero_cedeao",param.numero_cedeao)
+        formData.append("prenom",param.prenom)
+        formData.append("nom",param.nom)
+        formData.append("date_naissance",param.date_naissance)
+        formData.append("lieu_naissance",param.lieu_naissance)
+        formData.append("taille",param.taille)
+        formData.append("sexe",param.sexe)
+        formData.append("numero_electeur",param.numero_electeur)
+        formData.append("centre_vote",param.centre_vote)
+        formData.append("bureau_vote",param.bureau_vote)
+        formData.append("numero_cin",param.numero_cin)
+        formData.append("telephone",param.telephone)
+        formData.append("prenom_responsable",param.prenom_responsable)
+        formData.append("nom_responsable",param.nom_responsable)
+        formData.append("telephone_responsable",param.telephone_responsable)
+        formData.append("region",param.region)
+        formData.append("departement",param.departement)
+        formData.append("commune",param.commune)
+
+        this.$msasApi.post('/recherche_avance_parrainages',formData)
+          .then((response) => {
+            console.log('Donées reçus ++++++: ',response.data.data)
+           // this.listparrainages=response.data.data
+            this.$store.commit('parrainages/initlist',response.data.data)
+            this.loading = false;
+            this.progress=false
+            this.model.nombre_homme = response.data.data.filter((item) =>(item.sexe=='M')).length
+            this.model.nombre_femme= response.data.data.filter((item) =>(item.sexe=='F')).length
+            this.model.nombre_total = response.data.data.length
+          })
+          .catch((error) => {
+              console.log('Code error ++++++: ', error)
+              this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
+          }).finally(() => {
+            this.loading = false;
+            this.progress = false;
+            console.log('Requette envoyé ')
+        });
+        
+      },
+      async changeRegion(value) {
+        console.log(value?.departements)
+        this.model.departement= ''
+        this.model.commune = ''
+
+        this.listcommunes = []
+        this.listdepartements = value?.departements 
+        this.model.region = value?.nom_region
+        this.updateAtteint(value?.nom_region,'region')
+        
+      },
+      async changeDepartement(value) {    
+        this.model.commune = "" 
+        this.listcommunes = value?.communes 
+        this.model.departement = value?.nom_departement
+        this.updateAtteint(value?.nom_departement,'departement')
+      },
+      async changeCommune(value) {   
+        this.model.commune = value.nom_commune 
+        this.updateAtteint(value?.nom_commune,'commune')
+      },
         getResultatAtteint(){
           this.$msasApi.$get('/allSectoriel')
           .then(async (response) => { 
@@ -344,115 +402,40 @@
         },
 
         onClearClicked () {
-        this.annee = ''
-        this.trimestre = ''
-        this.secteur = ''
-        this.getResultatAtteint()
+        this.region = ''
+        this.departement = ''
+        this.commune = ''
+        this.updateAtteint('afficher_tout','all')
         
         },
         async updateAtteint(value,type) {
           var list = []
-          if(type=='annee'){
-            this.annee = value
-            if(this.trimestre=='' && this.secteur=='')
-            list = this.listresultatAtteints.filter((item) =>(item.annee==value))
-            if(this.trimestre!='' && this.secteur=='')
-            list = this.listresultatAtteints.filter((item) =>(item.annee==value && (parseInt(item.trimestre.slice(-1))<=parseInt(this.trimestre.slice(-1)))))
-            if(this.trimestre=='' && this.secteur!='')
-            list = this.listresultatAtteints.filter((item) =>(item.annee==value && item.composante==this.secteur))
-            if(this.trimestre!='' && this.secteur!='')
-            list = this.listresultatAtteints.filter((item) =>(item.annee==value && item.composante==this.secteur && (parseInt(item.trimestre.slice(-1))<=parseInt(this.trimestre.slice(-1)))))
+          if(type=='region'){
+            this.model.nombre_homme = this.listparrainages.filter((item) =>(item.region==value)).filter((item) =>(item.sexe=='M')).length
+            this.model.nombre_femme= this.listparrainages.filter((item) =>(item.region==value)).filter((item) =>(item.sexe=='F')).length
+            this.model.nombre_total = this.listparrainages.filter((item) =>(item.region==value)).length
           }
            
-          if(type=='trimestre'){
+          if(type=='departement'){
             
-            this.trimestre = value
-            console.log("+++Item filtre trimestre : ",(this.listresultatAtteints[0].trimestre.slice(-1)))
-            list = this.listresultatAtteints.filter((item) =>(parseInt(item.trimestre.slice(-1))<=parseInt(value.slice(-1))))
-            if(this.annee!='' && this.secteur=='')
-            list = this.listresultatAtteints.filter((item) =>((parseInt(item.trimestre.slice(-1))<=parseInt(value.slice(-1))) && item.annee==this.annee))
-            if(this.annee=='' && this.secteur!='')
-            list = this.listresultatAtteints.filter((item) =>((parseInt(item.trimestre.slice(-1))<=parseInt(value.slice(-1))) && item.composante==this.secteur))
-            if(this.annee!='' && this.secteur!='')
-            list = this.listresultatAtteints.filter((item) =>((parseInt(item.trimestre.slice(-1))<=parseInt(value.slice(-1))) && item.annee==this.annee && item.composante==this.secteur))
+            this.model.nombre_homme = this.listparrainages.filter((item) =>(item.departement==value)).filter((item) =>(item.sexe=='M')).length
+            this.model.nombre_femme= this.listparrainages.filter((item) =>(item.departement==value)).filter((item) =>(item.sexe=='F')).length
+            this.model.nombre_total = this.listparrainages.filter((item) =>(item.departement==value)).length
           }
           
-          if(type=='secteur'){
-            this.secteur = value
-            list = this.listresultatAtteints.filter((item) =>(item.composante==value))
-            if(this.annee!='' && this.trimestre=='')
-            list = this.listresultatAtteints.filter((item) =>(item.composante==value && item.annee==this.annee))
-            if(this.annee=='' && this.trimestre!='')
-            list = this.listresultatAtteints.filter((item) =>(item.composante==value && (parseInt(item.trimestre.slice(-1))<=parseInt(this.trimestre.slice(-1)))))
-            if(this.annee!='' && this.trimestre!='')
-            list = this.listresultatAtteints.filter((item) =>(item.composante==value && item.annee==this.annee && (parseInt(item.trimestre.slice(-1))<=parseInt(this.trimestre.slice(-1)))))
+          if(type=='commune'){
+            
+            this.model.nombre_homme = this.listparrainages.filter((item) =>(item.commune==value)).filter((item) =>(item.sexe=='M')).length
+            this.model.nombre_femme= this.listparrainages.filter((item) =>(item.commune==value)).filter((item) =>(item.sexe=='F')).length
+            this.model.nombre_total = this.listparrainages.filter((item) =>(item.commune==value)).length
           }
-          
 
-          let Ind_1 =0
-          let Ind_2 =0
-          let Ind_1_1 =0
-          let Ind_2_1=0
-          let Ind_R_3_1_1=0
-          let Ind_R_3_1_2 =0
-          let Ind_R_3_2_1 =0
-          let Ind_R_3_2_2=0
-
-          let Ind_1_2=0
-          let Ind_R_1_2_1=0
-          let Ind_R_1_1_2=0
-          let Ind_R_1_1_1 = 0
-          let Ind_2_2 =0
-          let Ind_R_1_2_2 =0
-          let Ind_R_2_2_2 =0
-          let Ind_R_2_2_1=0 	 
-          let Ind_R_2_1_1=0  
-
-          list.map((item)=>{
-
-            Ind_1=parseInt(Ind_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_1)
-            Ind_2=parseInt(Ind_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_2)
-            Ind_1_1=parseInt(Ind_1_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_1_1)
-            Ind_2_1=parseInt(Ind_2_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_2_1)
-            Ind_R_3_1_1=parseInt(Ind_R_3_1_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_3_1_1)
-
-            Ind_R_3_1_2=parseInt(Ind_R_3_1_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_3_1_2)
-            Ind_R_3_2_1=parseInt(Ind_R_3_2_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_3_2_1)
-            Ind_R_3_2_2=parseInt(Ind_R_3_2_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_3_2_2)
-
-            Ind_1_2=parseInt(Ind_1_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_1_2)
-            Ind_R_1_2_1=parseInt(Ind_R_1_2_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_1_2_1)
-            Ind_R_1_1_2=parseInt(Ind_R_1_1_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_1_1_2)
-            Ind_R_1_1_1=parseInt(Ind_R_1_1_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_1_1_1)
-            Ind_2_2=parseInt(Ind_2_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_2_2)
-
-            Ind_R_1_2_2=parseInt(Ind_R_1_2_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_1_2_2)
-            Ind_R_2_2_2=parseInt(Ind_R_2_2_2)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_2_2_2)
-            Ind_R_2_2_1=parseInt(Ind_R_2_2_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_1_1_2)
-            Ind_R_2_1_1=parseInt(Ind_R_2_1_1)+parseInt(JSON.parse(item.questionnaire)?.Ind_R_2_1_1)
-
-          })
-          this.model = {      
-            "Ind_1" : Ind_1,
-            "Ind_2" : Ind_2,
-            "Ind_1_1" : Ind_1_1,
-            "Ind_2_1" :Ind_2_1,
-            "Ind_R_3_1_1" :Ind_R_3_1_1,
-            "Ind_R_3_1_2" : Ind_R_3_1_2,
-            "Ind_R_3_2_1" : Ind_R_3_2_1,
-            "Ind_R_3_2_2" : Ind_R_3_2_2 ,
-
-            "Ind_1_2" : Ind_1_2,
-            "Ind_R_1_2_1" :Ind_R_1_2_1,
-            "Ind_R_1_1_2" :Ind_R_1_1_2,
-            "Ind_R_1_1_1" :Ind_R_1_1_1,
-            "Ind_2_2" :Ind_2_2,
-            "Ind_R_1_2_2" :Ind_R_1_2_2,
-            "Ind_R_2_2_2" : Ind_R_2_2_2,
-            "Ind_R_2_2_1" :Ind_R_2_2_1, 	
-            "Ind_R_1_1_1" :Ind_R_1_1_1, 
-            "Ind_R_2_1_1" :Ind_R_2_1_1
-          }  
+          if(type=='all'){
+            
+            this.model.nombre_homme = this.listparrainages.filter((item) =>(item.sexe=='M')).length
+            this.model.nombre_femme= this.listparrainages.filter((item) =>(item.sexe=='F')).length
+            this.model.nombre_total = this.listparrainages.length
+          }
         },
       },
       metaInfo () {
