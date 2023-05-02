@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import Tableparrainage from '@/components/parrainages/TableParrainage'
+import TableParrainage from '@/components/parrainages/TableParrainage'
   export default {
     components: {
       TableParrainage
