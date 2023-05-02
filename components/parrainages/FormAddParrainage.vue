@@ -720,7 +720,7 @@ import { mapMutations, mapGetters } from 'vuex'
         }
       },
       moveToMois_naissance(value) {
-        if (value.length == 4) {
+        if (value.length == 2) {
           this.$refs.mois_naissance.focus()
         }
       },
@@ -747,7 +747,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let validation = this.$refs.form.validate()
 
         this.model.numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
-        this.model.date_naissance = this.modelCedeao.jour+'/'+this.modelCedeao.mois+'/'+this.modelCedeao.annee
+        this.model.date_naissance = this.modelNaissance.jour+'/'+this.modelNaissance.mois+'/'+this.modelNaissance.annee
         this.model.numero_cin= this.modelCin.sexe+this.modelCin.codeCentre+this.modelCin.annee+this.modelCin.codeGenere
         console.log('FormData ++++++ : ',this.model)
 
@@ -759,7 +759,7 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("date_naissance",this.model.date_naissance)
         formData.append("lieu_naissance",this.model.lieu_naissance)
         formData.append("taille",this.model.taille)
-        formData.append("sexe",this.model.sexe==1?"M":"F")
+        formData.append("sexe",this.model.sexe)
         formData.append("numero_electeur",this.model.numero_electeur)
         formData.append("centre_vote",this.model.centre_vote)
         formData.append("bureau_vote",this.model.bureau_vote)
