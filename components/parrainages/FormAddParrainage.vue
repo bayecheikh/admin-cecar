@@ -3,7 +3,7 @@
     <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
-          <v-col md="4" lg="4" sm="12">
+          <v-col md="4" lg="4" sm="12" class="py-0 my-0">
             <v-text-field
               label="Prénom du Responsable"
               ref="prenom_responsable"
@@ -12,7 +12,7 @@
               :rules="rules.prenom_responsableRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12">
+          <v-col md="4" lg="4" sm="12" class="py-0 my-0">
             <v-text-field
               label="Nom du Responsable"
               outlined dense
@@ -20,7 +20,7 @@
               :rules="rules.nom_responsableRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12">
+          <v-col md="4" lg="4" sm="12" class="py-0 my-0">
             <v-text-field
               label="Téléphone du Responsable"
               outlined dense
@@ -28,7 +28,7 @@
               :rules="rules.telephone_responsableRules"
             ></v-text-field>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="4" md="4" sm="12" class="py-0 my-0">
             <v-autocomplete
               v-model="model.region"
               :rules="rules.regionRules"
@@ -43,7 +43,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="4" md="4" sm="12" class="py-0 my-0">
             <v-autocomplete
               v-model="model.departement"
               :rules="rules.departementRules"
@@ -58,7 +58,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="4" md="4" sm="12" class="py-0 my-0">
             <v-autocomplete
               v-model="model.commune"
               :rules="rules.communeRules"
@@ -76,11 +76,14 @@
         </v-row>
       </v-card>
       <h2 class="mb-5 primary custom-title-h2">INFORMATIONS DE L'ELECTEUR</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-card class="mx-auto mb-5 pl-7 pt-7 pr-7 pb-5">
         <div class="custom-ligne-bloc">       
-            <p>Numéro CEDEAO</p>
+            
             <v-row>
-              <v-col md="1" lg="1" sm="1">
+              <v-col md="12" lg="12" sm="2" class="py-0 my-0">
+                <h4>Numéro CEDEAO</h4>
+              </v-col>
+              <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                 <v-text-field
                   ref="sexe_cedeao"
                   placeholder="*"
@@ -91,7 +94,7 @@
                   @input="moveToCodeRegion_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="2" lg="2" sm="2">
+              <v-col md="2" lg="2" sm="2" class="py-0 my-0">
                 <v-text-field
                   ref="codeRegion_cedeao"
                   placeholder="**"
@@ -102,7 +105,7 @@
                   @input="moveToAnnee_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="3" lg="3" sm="3">
+              <v-col md="3" lg="3" sm="3" class="py-0 my-0">
                 <v-text-field
                   ref="annee_cedeao"
                   placeholder="****"
@@ -113,7 +116,7 @@
                   @input="moveToMois_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="1" lg="1" sm="1">
+              <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                 <v-text-field
                   ref="mois_cedeao"
                   placeholder="**"
@@ -124,7 +127,7 @@
                   @input="moveToJour_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="1" lg="1" sm="1">
+              <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                 <v-text-field
                   ref="jour_cedeao"
                   placeholder="**"
@@ -135,7 +138,7 @@
                   @input="moveToCodeGenere_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="3" lg="3" sm="3">
+              <v-col md="3" lg="3" sm="3" class="py-0 my-0">
                 <v-text-field
                   ref="codeGenere_cedeao"
                   placeholder="*****"
@@ -146,7 +149,7 @@
                   @input="moveToCodeControle_cedeao($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="1" lg="1" sm="1">
+              <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                 <v-text-field
                   ref="codeControle_cedeao"
                   placeholder="*"
@@ -158,7 +161,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col md="6" lg="6" sm="12">
+              <v-col md="6" lg="6" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Prénom"
                   outlined dense
@@ -166,7 +169,7 @@
                   :rules="rules.prenomRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="6" lg="6" sm="12">
+              <v-col md="6" lg="6" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Nom"
                   outlined dense
@@ -175,9 +178,12 @@
                 ></v-text-field>
               </v-col>
               <v-col md="12" lg="12" sm="12">
-                <p>Date de naissance</p>
+                
                 <v-row>
-                  <v-col md="1" lg="1" sm="1">
+                  <v-col md="12" lg="12" sm="12" class="py-0 my-0">
+                    <h4>Date de naissance</h4>
+                  </v-col>
+                  <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                     <v-text-field
                       ref="jour_naissance"
                       placeholder="JJ"
@@ -188,7 +194,7 @@
                       @input="moveToMois_naissance($event)"
                     ></v-text-field>
                   </v-col>
-                  <v-col md="1" lg="1" sm="1">
+                  <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                     <v-text-field
                       ref="mois_naissance"
                       placeholder="MM"
@@ -199,7 +205,7 @@
                       @input="moveToAnnee_naissance($event)"
                     ></v-text-field>
                   </v-col>
-                  <v-col md="4" lg="4" sm="4">
+                  <v-col md="4" lg="4" sm="4" class="py-0 my-0">
                     <v-text-field
                       ref="annee_naissance"
                       placeholder="AAAA"
@@ -214,7 +220,7 @@
 
               </v-col>
               
-              <v-col md="6" lg="6" sm="12">
+              <v-col md="6" lg="6" sm="12" class="py-0 my-0">
                     <v-text-field
                       label="Lieu de naissance"
                       outlined dense
@@ -222,7 +228,7 @@
                       :rules="rules.lieu_naissanceRules"
                     ></v-text-field>
                   </v-col>
-              <v-col md="3" lg="3" sm="12">
+              <v-col md="3" lg="3" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Taille"
                   outlined dense
@@ -231,24 +237,7 @@
                   maxlength="3"
                 ></v-text-field>
               </v-col>
-
-              <!-- <v-col md="6" lg="6" sm="12">
-                <v-radio-group
-                  v-model="model.sexe"
-                  row
-                  :rules="sexeRules"
-                >
-                  Sexe : &nbsp; &nbsp;<v-radio
-                    label="Masculin"
-                    value="M"
-                  ></v-radio>
-                  <v-radio
-                    label="Feminin"
-                    value="F"
-                  ></v-radio>
-                </v-radio-group>
-              </v-col> -->
-              <v-col md="3" lg="3" sm="12">
+              <v-col md="3" lg="3" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Sexe"
                   outlined dense
@@ -258,7 +247,7 @@
                   maxlength="1"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="4" lg="4" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Numéro Electeur"
                   ref="numero_electeur"
@@ -269,7 +258,7 @@
                 ></v-text-field>
               </v-col>
               
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="4" lg="4" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Centre de vote"
                   outlined dense
@@ -277,7 +266,7 @@
                   :rules="rules.centre_voteRules"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="12">
+              <v-col md="4" lg="4" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Bureau de vote"
                   outlined dense
@@ -286,9 +275,12 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-            <p>Numéro CIN</p>
+            
             <v-row>
-              <v-col md="1" lg="1" sm="1">
+              <v-col md="12" lg="12" sm="12" class="py-0 my-0">
+                <h4>Numéro CIN</h4>
+              </v-col>
+              <v-col md="1" lg="1" sm="1" class="py-0 my-0">
                 <v-text-field
                   ref="sexe_cin"
                   placeholder="*"
@@ -299,7 +291,7 @@
                   @input="moveToCodeCentre_cin($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="3" lg="3" sm="3">
+              <v-col md="3" lg="3" sm="3" class="py-0 my-0">
                 <v-text-field
                   ref="codeCentre_cin"
                   placeholder="***"
@@ -310,7 +302,7 @@
                   @input="moveToAnnee_cin($event)"
                 ></v-text-field>
               </v-col>
-              <v-col md="4" lg="4" sm="4">
+              <v-col md="4" lg="4" sm="4" class="py-0 my-0">
                 <v-text-field
                   ref="annee_cin"
                   placeholder="****"
@@ -322,7 +314,7 @@
                 ></v-text-field>
               </v-col>
   
-              <v-col md="4" lg="4" sm="4">
+              <v-col md="4" lg="4" sm="4" class="py-0 my-0">
                 <v-text-field
                   ref="codeGenere_cin"
                   placeholder="*****"
@@ -334,7 +326,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col md="12" lg="12" sm="12">
+              <v-col md="12" lg="12" sm="12" class="py-0 my-0">
                 <v-text-field
                   label="Téléphone"
                   outlined dense
