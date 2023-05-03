@@ -110,7 +110,7 @@
                   >Modifier
                 </v-list-item-title>
               </v-list-item> -->
-              <v-list-item v-if="$hasRole('super_admin')" @click="opendialog(item)" class="custom-v-list-action pl-2 pr-1" >
+              <v-list-item v-if="$hasPermission('supprimer-parrainage')" @click="opendialog(item)" class="custom-v-list-action pl-2 pr-1" >
                 <v-list-item-title>
                   <v-icon small class="mr-2" v-bind="attrs" v-on="on">
                     mdi-delete-outline </v-icon

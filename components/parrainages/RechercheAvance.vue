@@ -104,13 +104,14 @@
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
-            <v-btn :loading="loadingTout" text @click="resetInfoElecteur" rounded color="green">Afficher tout</v-btn>
-          </v-col>
-          <v-col md="3" lg="3" sm="12">
             <v-btn :loading="loadingExport" depressed  color="secondary" outlined @click="ExportCSV">
               Exporter tout en excel
             </v-btn>
           </v-col>
+          <v-col md="3" lg="3" sm="12">
+            <v-btn :loading="loadingTout" text @click="resetInfoElecteur" outlined color="green">Afficher tout</v-btn>
+          </v-col>
+          
           <v-col md="3" lg="3" sm="12">
             <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddParrainage">
               Ajouter des parrainages
