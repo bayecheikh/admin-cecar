@@ -84,7 +84,7 @@
                 <v-text-field
                   ref="sexe_cedeao"
                   placeholder="*"
-                  outlined dense
+                  
                   v-model="modelCedeao.sexe"
                   :rules="sexe_cedeaoRules"
                   maxlength="1"
@@ -95,7 +95,7 @@
                 <v-text-field
                   ref="codeRegion_cedeao"
                   placeholder="**"
-                  outlined dense
+                  
                   v-model="modelCedeao.codeRegion"
                   :rules="codeRegion_cedeaoRules"
                   maxlength="2"
@@ -106,7 +106,7 @@
                 <v-text-field
                   ref="annee_cedeao"
                   placeholder="****"
-                  outlined dense
+                  
                   v-model="modelCedeao.annee"
                   :rules="annee_cedeaoRules"
                   maxlength="4"
@@ -117,7 +117,7 @@
                 <v-text-field
                   ref="mois_cedeao"
                   placeholder="**"
-                  outlined dense
+                  
                   v-model="modelCedeao.mois"
                   :rules="mois_cedeaoRules"
                   maxlength="2"
@@ -128,7 +128,7 @@
                 <v-text-field
                   ref="jour_cedeao"
                   placeholder="**"
-                  outlined dense
+                 
                   v-model="modelCedeao.jour"
                   :rules="jour_cedeaoRules"
                   maxlength="2"
@@ -139,7 +139,7 @@
                 <v-text-field
                   ref="codeGenere_cedeao"
                   placeholder="*****"
-                  outlined dense
+                  
                   v-model="modelCedeao.codeGenere"
                   :rules="codeGenere_cedeaoRules"
                   maxlength="5"
@@ -150,7 +150,7 @@
                 <v-text-field
                   ref="codeControle_cedeao"
                   placeholder="*"
-                  outlined dense
+                  
                   v-model="modelCedeao.codeControle"
                   :rules="codeControle_cedeaoRules"
                   maxlength="1"
@@ -181,7 +181,7 @@
                     <v-text-field
                       ref="jour_naissance"
                       placeholder="JJ"
-                      outlined dense
+                      
                       v-model="modelNaissance.jour"
                       :rules="jour_naissanceRules"
                       maxlength="2"
@@ -192,7 +192,7 @@
                     <v-text-field
                       ref="mois_naissance"
                       placeholder="MM"
-                      outlined dense
+                      
                       v-model="modelNaissance.mois"
                       :rules="mois_naissanceRules"
                       maxlength="2"
@@ -203,13 +203,18 @@
                     <v-text-field
                       ref="annee_naissance"
                       placeholder="AAAA"
-                      outlined dense
+                      
                       v-model="modelNaissance.annee"
                       :rules="annee_naissanceRules"
                       maxlength="4"
                     ></v-text-field>
                   </v-col>
-                  <v-col md="6" lg="6" sm="12">
+                  
+                </v-row>
+
+              </v-col>
+              
+              <v-col md="6" lg="6" sm="12">
                     <v-text-field
                       label="Lieu de naissance"
                       outlined dense
@@ -217,12 +222,7 @@
                       :rules="rules.lieu_naissanceRules"
                     ></v-text-field>
                   </v-col>
-                </v-row>
-
-              </v-col>
-              
-              
-              <v-col md="6" lg="6" sm="12">
+              <v-col md="3" lg="3" sm="12">
                 <v-text-field
                   label="Taille"
                   outlined dense
@@ -248,7 +248,7 @@
                   ></v-radio>
                 </v-radio-group>
               </v-col> -->
-              <v-col md="6" lg="6" sm="12">
+              <v-col md="3" lg="3" sm="12">
                 <v-text-field
                   label="Sexe"
                   outlined dense
@@ -261,6 +261,7 @@
               <v-col md="4" lg="4" sm="12">
                 <v-text-field
                   label="Numéro Electeur"
+                  ref="numero_electeur"
                   outlined dense
                   v-model="model.numero_electeur"
                   :rules="numero_electeurRules"
@@ -291,7 +292,7 @@
                 <v-text-field
                   ref="sexe_cin"
                   placeholder="*"
-                  outlined dense
+               
                   v-model="modelCin.sexe"
                   :rules="sexe_cinRules"
                   maxlength="1"
@@ -302,7 +303,7 @@
                 <v-text-field
                   ref="codeCentre_cin"
                   placeholder="***"
-                  outlined dense
+                 
                   v-model="modelCin.codeCentre"
                   :rules="codeCentre_cinRules"
                   maxlength="3"
@@ -313,7 +314,7 @@
                 <v-text-field
                   ref="annee_cin"
                   placeholder="****"
-                  outlined dense
+                 
                   v-model="modelCin.annee"
                   :rules="annee_cinRules"
                   maxlength="4"
@@ -325,7 +326,7 @@
                 <v-text-field
                   ref="codeGenere_cin"
                   placeholder="*****"
-                  outlined dense
+                
                   v-model="modelCin.codeGenere"
                   :rules="codeGenere_cinRules"
                   maxlength="5"
@@ -435,12 +436,17 @@ import { mapMutations, mapGetters } from 'vuex'
         ]
       },
       codeControle_cedeaoRules() {
+        try{
+          this.verifyNumCedeao()
+        }catch(e){
+          console.log(e)
+        }
+        
           return [
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 1) return true;                  
-                                              
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 1) return true;                                             
             return 'Veuillez saisir un chiffre valide';
           },
         ]
@@ -451,9 +457,9 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4 && (parseFloat(this.modelCedeao.annee)==parseFloat(v) )) return true;                  
+            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4 && (parseFloat(this.modelCedeao.annee)==parseFloat(v) || this.modelCedeao.annee=='' )) return true;                  
                                               
-            return 'Veuillez saisir un chiffre valide et vérifier le numéro CEDEAO';
+            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
           },
         ]
       },
@@ -462,9 +468,9 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 12 && v.length == 2 && (parseFloat(this.modelCedeao.mois)==parseFloat(v) )) return true;                  
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 12 && v.length == 2 && (parseFloat(this.modelCedeao.mois)==parseFloat(v) || this.modelCedeao.mois=='' )) return true;                  
                                               
-            return 'Veuillez saisir un chiffre valide et vérifier le numéro CEDEAO';
+            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
           },
         ]
       },
@@ -473,9 +479,9 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 31 && v.length == 2 && (parseFloat(this.modelCedeao.jour)==parseFloat(v) )) return true;                  
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 31 && v.length == 2 && (parseFloat(this.modelCedeao.jour)==parseFloat(v) ||  this.modelCedeao.jour=='')) return true;                  
                                               
-            return 'Veuillez saisir un chiffre valide et vérifier le numéro CEDEAO';
+            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
           },
         ]
       },
@@ -487,7 +493,7 @@ import { mapMutations, mapGetters } from 'vuex'
             //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
             if ((parseFloat(this.modelCin.sexe)==1 || parseFloat(this.modelCedeao.sexe)==1) && v=='M') return true;                  
             if ((parseFloat(this.modelCin.sexe)==1 || parseFloat(this.modelCedeao.sexe)==2) && v=='F') return true;                  
-            return 'Veuillez saisir une valeur valide (M ou F) et vérifier le numéro CEDEAO';
+            return 'Veuillez saisir une valeur valide (M ou F) ou vérifier le numéro CEDEAO';
           },
         ]
       },
@@ -498,8 +504,8 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log(v[0])
             if (!v.trim() || v=='') return true;
             //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
-            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe==1) && parseFloat(v)==1) return true;                  
-            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe==2) && parseFloat(v)==2) return true;                  
+            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe=='' || this.modelCedeao.sexe==1) && parseFloat(v)==1) return true;                  
+            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe=='' || this.modelCedeao.sexe==2) && parseFloat(v)==2) return true;                  
             return 'Veuillez saisir un chiffre valide';
           },
         ]
@@ -522,11 +528,16 @@ import { mapMutations, mapGetters } from 'vuex'
             if (!v.trim() || v=='') return true;
             if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
                                               
-            return 'Veuillez saisir un chiffre valide et vérifier le numéro CEDEAO';
+            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
           },
         ]
       },
       codeGenere_cinRules() {
+        try{
+          this.verifyNumCin()
+        }catch(e){
+          console.log(e)
+        }
           return [
           v  => {
             console.log(v[0])
@@ -549,6 +560,11 @@ import { mapMutations, mapGetters } from 'vuex'
         ]
       },
       numero_electeurRules() {
+        try{
+          this.verifyNumElecteur()
+        }catch(e){
+          console.log(e)
+        }
           return [
           v  => {
             console.log(v[0])
@@ -570,6 +586,16 @@ import { mapMutations, mapGetters } from 'vuex'
           },
         ]
       },
+      telephoneRules() {
+          return [
+          v  => {
+            console.log(v[0])
+            if (!v.trim() || v=='') return true;                 
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1) return true;  
+            return 'Veuillez saisir un chiffre valide';
+          },
+        ]
+      },
       getDateNaissance() {
           return this.modelCedeao.jour+'/'+this.modelCedeao.mois+'/'+this.modelCedeao.annee
       },  
@@ -579,6 +605,9 @@ import { mapMutations, mapGetters } from 'vuex'
 
     },
     data: () => ({
+      num_cedeao_exist:true,
+      num_cin_exist:false,
+      num_electeur_exist:false,
       listcommunes:[],
       listdepartements:[],
       listregions:[],
@@ -665,6 +694,102 @@ import { mapMutations, mapGetters } from 'vuex'
           }).finally(() => {
           console.log('Requette envoyé ')
         });
+      },
+      async verifyNumCedeao(){
+        console.log("request verify-----------------")
+        if(this.modelCedeao.sexe!='' &&
+        this.modelCedeao.codeRegion!='' &&
+        this.modelCedeao.annee!='' &&
+        this.modelCedeao.mois!='' &&
+        this.modelCedeao.jour!='' &&
+        this.modelCedeao.codeGenere!='' &&
+        this.modelCedeao.codeControle){
+          let numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
+          let formData = new FormData();
+          formData.append("numero_cedeao",numero_cedeao)
+          this.$msasApi.$post('parrainageByNumCedeao',formData)
+          .then(async (response) => { 
+            console.log('Données cedeao reçu+++++++++++',response.data.length)
+            this.num_cedeao_exist=response.data.length==0?true:false
+            if(response.data.length!=0){
+              this.modelCedeao.sexe=""
+              this.modelCedeao.codeRegion =""
+              this.modelCedeao.annee =""
+              this.modelCedeao.mois =""
+              this.modelCedeao.jour =""
+              this.modelCedeao.codeGenere =""
+              this.modelCedeao.codeControle =""
+              this.$refs.sexe_cedeao.focus()
+              alert("Ce numéro est déja enregistré sur la base de données. Veuillez saisir un autre")
+            }
+            //this.listregions=response.data.data
+            }).catch((error) => {
+                console.log('Code error ++++++: ', error?.response?.data?.message)
+            }).finally(() => {
+            console.log('Requette envoyé ')
+            this.num_cedeao_exist=false
+          });
+        }
+        
+      },
+      async verifyNumCin(){
+        console.log("request verify-----------------",this.modelCin.codeGenere.length)
+        if(this.modelCin.sexe!='' &&
+        this.modelCin.codeCentre!='' &&
+        this.modelCin.codeGenere.length==5 &&
+        this.modelCin.annee!=''
+        ){
+          let numero_cin = this.modelCin.sexe+this.modelCin.codeCentre+this.modelCin.annee+this.modelCin.codeGenere
+          let formData = new FormData();
+          formData.append("numero_cin",numero_cin)
+          this.$msasApi.$post('parrainageByNumCin',formData)
+          .then(async (response) => { 
+            console.log('Données cin reçu+++++++++++',response.data.length)
+            this.num_cin_exist=response.data.length==0?true:false
+            if(response.data.length!=0){
+              this.modelCin.sexe=""
+              this.modelCin.annee =""
+              this.modelCin.codeGenere =""
+              this.modelCin.codeCentre =""
+              this.$refs.sexe_cin.focus()
+              alert("Ce numéro est déja enregistré sur la base de données. Veuillez saisir un autre")
+            }
+            //this.listregions=response.data.data
+            }).catch((error) => {
+                console.log('Code error ++++++: ', error?.response?.data?.message)
+            }).finally(() => {
+            console.log('Requette envoyé ')
+            this.num_cedeao_exist=false
+          });
+        }
+        
+      },
+      async verifyNumElecteur(){
+        console.log("request verify-----------------",this.modelCin.codeGenere.length)
+        if(this.model.numero_electeur.length==9 
+        ){
+          let numero_electeur = this.model.numero_electeur
+          let formData = new FormData();
+          formData.append("numero_electeur",numero_electeur)
+          this.$msasApi.$post('parrainageByNumElecteur',formData)
+          .then(async (response) => { 
+            console.log('Données cin reçu+++++++++++',response.data.length)
+            this.num_cin_exist=response.data.length==0?true:false
+            if(response.data.length!=0){
+              alert("Ce numéro est déja enregistré sur la base de données. Veuillez saisir un autre")
+              this.model.numero_electeur =""
+              this.$refs.numero_electeur.focus()
+              
+            }
+            //this.listregions=response.data.data
+            }).catch((error) => {
+                console.log('Code error ++++++: ', error?.response?.data?.message)
+            }).finally(() => {
+            console.log('Requette envoyé ')
+            this.num_cedeao_exist=false
+          });
+        }
+        
       },
       async changeRegion(value) {
         console.log(value?.departements)
