@@ -366,9 +366,13 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log(v[0])
             if (!v.trim() || v=='') return true;
             //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
-            if ((this.model.sexe=='' || this.model.sexe=='M') && parseFloat(v)==1) return true;                  
-            if ((this.model.sexe=='' || this.model.sexe=='F') && parseFloat(v)==2) return true;                  
-            return 'Veuillez saisir un chiffre valide';
+            
+            if ((parseFloat(this.modelCin.sexe)==1) && v=='2') return 'Veuillez vérifier le numéro CIN';                  
+            if ((parseFloat(this.modelCin.sexe)==2) && v=='1') return 'Veuillez vérifier le numéro CIN';    
+            if (this.model.sexe=='M' && v=='2') return 'Veuillez vérifier le sexe';                  
+            if (this.model.sexe=='F' && v=='1') return 'Veuillez vérifier le sexe';                                         
+            if (v!='1' && v!='2') return 'Le chiffre commence par 1 ou 2';
+            return true;
           },
         ]
       },
@@ -388,9 +392,14 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+            //if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+            if (isNaN(parseFloat(v))) return "Veuiilez saisir un chiffre";                  
+            if (parseFloat(v) >= 2005) return "Veuillez verifier le chiffre";                  
+            if ( v.length != 4) return "Veuillez verifier le chiffre";                  
+            if ( this.modelCin.annee!='' && v!= this.modelCin.annee) return "Veuillez verifier le CIN";                  
+            if ( this.modelNaissance.annee!='' && v!= this.modelNaissance.annee) return "Veuillez verifier la date de naissance";                  
                                               
-            return 'Veuillez saisir un chiffre valide';
+            return true;
           },
         ]
       },
@@ -449,9 +458,14 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4 && (parseFloat(this.modelCedeao.annee)==parseFloat(v) || this.modelCedeao.annee=='' )) return true;                  
+            //if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+            if (isNaN(parseFloat(v))) return "Veuiilez saisir un chiffre";                  
+            if (parseFloat(v) >= 2005) return "Veuillez verifier le chiffre";                  
+            if ( v.length != 4) return "Veuillez verifier le chiffre";                  
+            if ( this.modelCin.annee!='' && v!= this.modelCin.annee) return "Veuillez verifier le CIN";                  
+            if ( this.modelCedeao.annee!='' && v!= this.modelCedeao.annee) return "Veuillez verifier le CEDEAO";                                   
                                               
-            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
+            return true;
           },
         ]
       },
@@ -460,6 +474,7 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
+            if (isNaN(parseFloat(v))) return "Veuiilez saisir un chiffre"; 
             if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 12 && v.length == 2 && (parseFloat(this.modelCedeao.mois)==parseFloat(v) || this.modelCedeao.mois=='' )) return true;                  
                                               
             return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
@@ -471,6 +486,7 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
+            if (isNaN(parseFloat(v))) return "Veuiilez saisir un chiffre"; 
             if (!isNaN(parseFloat(v)) && parseFloat(v) >= 1 && parseFloat(v) <= 31 && v.length == 2 && (parseFloat(this.modelCedeao.jour)==parseFloat(v) ||  this.modelCedeao.jour=='')) return true;                  
                                               
             return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
@@ -483,9 +499,12 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log(v[0])
             if (!v.trim() || v=='') return true;
             //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
-            if ((parseFloat(this.modelCin.sexe)==1 || parseFloat(this.modelCedeao.sexe)==1) && v=='M') return true;                  
-            if ((parseFloat(this.modelCin.sexe)==1 || parseFloat(this.modelCedeao.sexe)==2) && v=='F') return true;                  
-            return 'Veuillez saisir une valeur valide (M ou F) ou vérifier le numéro CEDEAO';
+            if ((parseFloat(this.modelCin.sexe)==1) && v=='F') return 'Veuillez vérifier le numéro CIN';                  
+            if ((parseFloat(this.modelCedeao.sexe)==1) && v=='F') return 'Veuillez vérifier le numéro CEDEAO';    
+            if ((parseFloat(this.modelCin.sexe)==2) && v=='M') return 'Veuillez vérifier le numéro CIN';                  
+            if ((parseFloat(this.modelCedeao.sexe)==2) && v=='M') return 'Veuillez vérifier le numéro CEDEAO';              
+            if (v!='F' && v!='M') return 'Veuillez saisir M ou F';                
+            return true;
           },
         ]
       },
@@ -496,9 +515,12 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log(v[0])
             if (!v.trim() || v=='') return true;
             //if (!isNaN(parseFloat(v)) && v <= 2 && v >= 1) return true;                  
-            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe=='' || this.modelCedeao.sexe==1) && parseFloat(v)==1) return true;                  
-            if ((this.modelCin.sexe=='' || this.modelCedeao.sexe=='' || this.modelCedeao.sexe==2) && parseFloat(v)==2) return true;                  
-            return 'Veuillez saisir un chiffre valide';
+            if ((parseFloat(this.modelCedeao.sexe)==1) && v=='2') return 'Veuillez vérifier le numéro CEDEAO';                  
+            if ((parseFloat(this.modelCedeao.sexe)==2) && v=='1') return 'Veuillez vérifier le numéro CEDEAO';    
+            if (this.model.sexe=='M' && v=='2') return 'Veuillez vérifier le sexe';                  
+            if (this.model.sexe=='F' && v=='1') return 'Veuillez vérifier le sexe';                                         
+            if (v!='1' && v!='2') return 'Le chiffre commence par 1 ou 2';
+            return true;
           },
         ]
       },
@@ -518,9 +540,14 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+           // if (!isNaN(parseFloat(v)) && parseFloat(v) <= 2005 && v.length == 4) return true;                  
+            if (isNaN(parseFloat(v))) return "Veuiilez saisir un chiffre";                  
+            if (parseFloat(v) >= 2005) return "Veuillez verifier le chiffre";                  
+            if ( v.length != 4) return "Veuillez verifier le chiffre";                  
+            if ( this.modelCedeao.annee!='' && v!= this.modelCedeao.annee) return "Veuillez verifier le numéro CEDEAO";                  
+            if ( this.modelNaissance.annee!='' && v!= this.modelNaissance.annee) return "Veuillez verifier la date de naissance";                  
                                               
-            return 'Veuillez saisir un chiffre valide ou vérifier le numéro CEDEAO';
+            return true;
           },
         ]
       },
@@ -802,58 +829,58 @@ import { mapMutations, mapGetters } from 'vuex'
         this.model.commune = value.nom_commune 
       },
       moveToCodeRegion_cedeao(value) {
-        if (value.length == 1) {
+        if (value.length == 1 && this.$refs.sexe_cedeao.validate()) {
           this.$refs.codeRegion_cedeao.focus()
         }
       },
       moveToAnnee_cedeao(value) {
-        if (value.length == 2) {
+        if (value.length == 2 && this.$refs.codeRegion_cedeao.validate()) {
           this.$refs.annee_cedeao.focus()
         }
       },
       moveToMois_cedeao(value) {
-        if (value.length == 4) {
+        if (value.length == 4 && this.$refs.annee_cedeao.validate()) {
           this.$refs.mois_cedeao.focus()
         }
       },
       moveToJour_cedeao(value) {
-        if (value.length == 2) {
+        if (value.length == 2 && this.$refs.mois_cedeao.validate()) {
           this.$refs.jour_cedeao.focus()
         }
       },
       moveToCodeGenere_cedeao(value) {
-        if (value.length == 2) {
+        if (value.length == 2 && this.$refs.jour_cedeao.validate()) {
           this.$refs.codeGenere_cedeao.focus()
         }
       },
       moveToCodeControle_cedeao(value) {
-        if (value.length == 5) {
+        if (value.length == 5 && this.$refs.codeGenere_cedeao.validate()) {
           this.$refs.codeControle_cedeao.focus()
         }
       },
       moveToAnnee_naissance(value) {
-        if (value.length == 2) {
+        if (value.length == 2 && this.$refs.mois_naissance.validate()) {
           this.$refs.annee_naissance.focus()
         }
       },
       moveToMois_naissance(value) {
-        if (value.length == 2) {
+        if (value.length == 2 && this.$refs.jour_naissance.validate()) {
           this.$refs.mois_naissance.focus()
         }
       },
       //CIN function move
       moveToCodeCentre_cin(value) {
-        if (value.length == 1) {
+        if (value.length == 1 && this.$refs.sexe_cin.validate()) {
           this.$refs.codeCentre_cin.focus()
         }
       },
       moveToAnnee_cin(value) {
-        if (value.length == 3) {
+        if (value.length == 3 && this.$refs.codeCentre_cin.validate()) {
           this.$refs.annee_cin.focus()
         }
       },
       moveToCodeGenere_cin(value) {
-        if (value.length == 4) {
+        if (value.length == 4 && this.$refs.annee_cin.validate()) {
           this.$refs.codeGenere_cin.focus()
         }
       },
