@@ -326,7 +326,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col md="12" lg="12" sm="12" class="py-0 my-0">
+              <v-col md="12" lg="12" sm="12" class="py-4 my-0">
                 <v-text-field
                   label="Téléphone"
                   outlined dense
@@ -336,7 +336,7 @@
               </v-col>
             </v-row>
 
-          <v-btn :loading="loading" class="mr-4 text-white" color="#1B73E8" @click="submitForm">
+          <v-btn depressed :loading="loading" class="mr-4 text-white" color="primary" @click="submitForm">
             Enregistrer
           </v-btn>
         </div>     
