@@ -5,7 +5,7 @@
   </div> 
   <div class="custom-container">
     <v-card class="container" flat>  
-      <list-typeannee></list-typeannee>
+      <list-typemilitant></list-typemilitant>
     </v-card>
   </div> 
 </div>
@@ -14,7 +14,7 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import ListTypeannee from '@/components/type_annees/ListTypeannee'
+import ListTypemilitant from '@/components/type_militants/ListTypemilitant'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
@@ -25,23 +25,23 @@ import ListTypeannee from '@/components/type_annees/ListTypeannee'
     components: {
       LeftMenu,
       PageHeader,
-      ListTypeannee
+      ListTypemilitant
     },
     mounted: function() {
-      this.$store.dispatch('type_annees/getList')
+      this.$store.dispatch('type_militants/getList')
     },
     data () {
       return {
         selectedItem: 0,
         leftmenuItems: [
           { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
-          { text: 'type_annees', icon: 'mdi-lock',link:'/type_annees',position:2  }
+          { text: 'type_militants', icon: 'mdi-lock',link:'/type_militants',position:2  }
         ],
         headerItems: [
           {
-            text: 'Liste des types annees',
+            text: 'Liste des types militants',
             disabled: true,
-            to: '/type_annees',
+            to: '/type_militants',
             exact: true
           }
         ]

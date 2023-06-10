@@ -13,13 +13,13 @@
 </v-card-title>
 <v-data-table
   :headers="headers"
-  :items="tab=='tout'?listtype_annees : listtype_annees.filter(type_annee => type_annee.status === tab)"
+  :items="listtype_militants"
   item-key="id"
   items-per-page="5"
   class="flat pt-4"
-  :loading="listtype_annees.length?false:true" 
+  :loading="listtype_militants.length<0?true:false"
   loading-text="Loading... Please wait"
-  :rows-per-page-items="[10,20,30,40,50]"
+  :rows-per-page-items="[10,20,30]"
   hide-default-footer
   :search="search"
 >
@@ -107,8 +107,8 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      listtype_annees: 'type_annees/listtype_annees',
-      headers: 'type_annees/headertype_annees'
+      listtype_militants: 'type_militants/listtype_militants',
+      headers: 'type_militants/headertype_militants'
     }),
     props: ['tab'],
     metaInfo () {
@@ -118,19 +118,19 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       visualiserItem (item) {   
-        this.$store.dispatch('type_annees/getDetail',item)
-        this.$router.push('/type_annees/detail/'+item.id);
+        this.$store.dispatch('type_militants/getDetail',item);
+        this.$router.push('/type_militants/detail/'+item.id);
       },
       editItem (item) {   
-        this.$store.dispatch('type_annees/getDetail',item)
-        this.$router.push('/type_annees/modifier/'+item.id);
+        this.$store.dispatch('type_militants/getDetail',item);
+        this.$router.push('/type_militants/modifier/'+item.id);
       },
        deleteItem (item) {
         this.dialog=false   
-        this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$msasApi.$delete('/type_annees/'+this.activeItem.id)
+        this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})
+        this.$msasApi.$delete('/type_militants/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('type_annees/deletetype_annee',this.activeItem.id)
+            this.$store.dispatch('type_militants/deletetype_militant',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
@@ -148,18 +148,18 @@ import { mapMutations, mapGetters } from 'vuex'
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let type_annee = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('type_annees/initdetail',type_annee)
-          this.$router.push('/type_annees/detail/'+type_annee.id);
+          let type_militant = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('type_militants/initdetail',type_militant)
+          this.$router.push('/type_militants/detail/'+type_militant.id);
         }
       },
       modifier(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let type_annee = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('type_annees/initdetail',type_annee)
-          this.$router.push('/type_annees/modifier/'+type_annee.id);
+          let type_militant = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('type_militants/initdetail',type_militant)
+          this.$router.push('/type_militants/modifier/'+type_militant.id);
         }
       },
       supprimer(){

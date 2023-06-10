@@ -11,39 +11,39 @@
         depressed
         rounded
         color="primary"
-        @click="goToAddtype_annee"
+        @click="goToAddtype_militant"
         >
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau type annee
+          Nouveau type militant
         </v-btn>
       </div>
     </div>
     
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in tabItems"  :key="item.value" >
-          <table-typeannee :tab="item.value"></table-typeannee> 
+          <table-typemilitant :tab="item.value"></table-typemilitant> 
       </v-tab-item>          
     </v-tabs-items>
   </div>
 </template>
 <script>
-import TableTypeannee from '@/components/type_annees/TableTypeannee'
+import TableTypemilitant from '@/components/type_militants/TableTypemilitant'
   export default {
     components: {
-      TableTypeannee
+      TableTypemilitant
     },
     data: () => ({
       tab: null,
       tabItems: [
-        {title:'Tout',value:'tout'}, {title:'Actifs',value:'actif'}, {title:'Inactifs',value:'innactif'}
+        {title:'Tout',value:'tout'}
       ],
       selected: []
     }),
     methods:{
-      goToAddtype_annee() {      
-        this.$router.push('/type_annees/addTypeannee');
+      goToAddtype_militant() {      
+        this.$router.push('/type_militants/addTypemilitant');
       },
     }
   }

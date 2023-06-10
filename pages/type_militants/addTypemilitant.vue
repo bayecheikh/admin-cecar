@@ -5,7 +5,7 @@
   </div> 
   <div class="custom-container">
     <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
-      <form-update-typeannee></form-update-typeannee>
+      <form-add-typemilitant></form-add-typemilitant>
     </v-card>
   </div> 
 </div>
@@ -14,15 +14,15 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import FormUpdateTypeannee from '@/components/type_annees/modifier/FormUpdateTypeannee';
+import FormAddTypemilitant from '@/components/type_militants/FormAddTypemilitant';
   export default {
     layout: "dashboard",
     components: {
       LeftMenu,
       PageHeader,
-      FormUpdateTypeannee
+      FormAddTypemilitant
     },
-    middleware: function ({redirect,$hasPermission}) {
+    middleware: function ({redirect,$hasPermission,}) {
       if(!$hasPermission('gerer-parametres')){
         return redirect('/')
       }
@@ -31,19 +31,19 @@ import FormUpdateTypeannee from '@/components/type_annees/modifier/FormUpdateTyp
       return {
         leftmenuItems: [
           { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
-          { text: 'type_annees', icon: 'mdi-lock',link:'/type_annees',position:2  }
+          { text: 'type_militants', icon: 'mdi-lock',link:'/type_militants',position:2  }
         ],
         headerItems: [
         {
-          text: 'Type années',
+          text: 'Types années',
           disabled: false,
-          to: '/type_annees',
+          to: '/type_militants',
           exact: true
         },
         {
-          text: 'Detail type annee',
-          disabled: true,
-          to: '/type_annees/94',
+          text: 'Nouveau type militant',
+          disabled: false,
+          to: '/type_militants/addTypemilitant',
           exact: true
         }
         
@@ -56,7 +56,7 @@ import FormUpdateTypeannee from '@/components/type_annees/modifier/FormUpdateTyp
         menu2: false,
         menu3: false,
         modal: false,
-        type_annees: ['Sperviseur national'],
+        type_militants: ['Sperviseur national'],
         localisations: ['Thiès','Dakar'],
 
       }

@@ -4,18 +4,19 @@
         <page-header :items="headerItems" class=""></page-header>  
     </div>  -->
     <div class="custom-container mt-3 d-flex flex-row-reverse">
-      <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddParrainage">
-              Ajouter des parrainages
-            </v-btn>     
-    </div>
+          <v-btn depressed class="mr-0 text-white " color="green" @click="GotoAddannuaire">
+            Ajouter des membres
+          </v-btn>     
+    </div> 
     <div class="custom-container mt-3">
       <v-card class="container" flat>  
         <recherche-avance></recherche-avance>
       </v-card>
     </div> 
+    
     <div class="custom-container mt-0">
       <v-card class="container" flat>  
-        <table-parrainage></table-parrainage>
+        <table-annuaire></table-annuaire>
       </v-card>
     </div> 
 </div>
@@ -23,8 +24,8 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import TableParrainage from '@/components/parrainages/TableParrainage'
-import RechercheAvance from '@/components/parrainages/RechercheAvance'
+import TableAnnuaire from '@/components/annuaires/TableAnnuaire'
+import RechercheAvance from '@/components/annuaires/RechercheAvance'
 import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
@@ -35,7 +36,7 @@ import { mapActions} from 'vuex'
     },
     components: {
       PageHeader,
-      TableParrainage,
+      TableAnnuaire,
       RechercheAvance
     },
     data () {
@@ -43,9 +44,9 @@ import { mapActions} from 'vuex'
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des parrainages',
+            text: 'Annuaire',
             disabled: true,
-            to: '/parrainages',
+            to: '/annuaires',
             exact: true
           }
         ]
@@ -56,7 +57,6 @@ import { mapActions} from 'vuex'
         this.$router.push('/annuaires/addAnnuaire');
       }
     }
-
   }
 </script>
 

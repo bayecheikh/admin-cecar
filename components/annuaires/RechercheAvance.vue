@@ -72,35 +72,78 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
+          <v-col lg="4" md="4" sm="12" class="py-0 my-0">
+            <v-autocomplete
+              v-model="model.type_militant"
+              :rules="rules.communeRules"
+              :items="listtype_militants"
+              outlined
+              dense
+              label="Type de membre"
+              item-text="libelle"
+              item-value="libelle"
+              return-object
+              @change="changeTypeMilitant"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col md="4" lg="4" sm="12" class="py-0 my-0">
             <v-text-field
-              label="Numéro CEDEAO"
+              label="Téléphone"
               outlined dense
-              v-model="model.numero_cedeao"
-              :rules="numero_cedeaoRules"
+              v-model="model.telephone"
+              :rules="telephoneRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
-            <v-text-field
-              label="Numéro CIN"
-              outlined dense
-              v-model="model.numero_cin"
-              :rules="numero_cedeaoRules"
-            ></v-text-field>
-          </v-col>
-          <v-col md="4" lg="4" sm="12" class="pb-0 pt-0">
-            <v-text-field
-              label="Numéro Electeur"
-              outlined dense
-              v-model="model.numero_electeur"
-              :rules="numero_cedeaoRules"
-            ></v-text-field>
-          </v-col>
+          <v-col md="4" lg="4" sm="12" class="py-0 my-0">
+                <v-text-field
+                  label="Nom"
+                  outlined dense
+                  v-model="model.nom"
+                  :rules="rules.nomRules"
+                ></v-text-field>
+              </v-col>
         </v-row>
+        <v-dialog v-model="dialog" width="500">
+            
+            <v-card>
+              <v-card-title class="text-h5"> Veillez saisir votre message</v-card-title>
+              <v-card-text>
+                <v-col md="12" lg="12" sm="12">
+                    <v-textarea
+                      label=""
+                      outlined
+                      dense
+                      v-model="message"
+                    ></v-textarea>
+                  </v-col>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary darken-1"
+                  text
+                  @click="dialog = false"
+                  outlined
+                >
+                  Annuler
+                </v-btn>
+                <v-btn :loading="loadingSms" color="green" text @click="sendSMS" outlined>
+                  Envoyer le message
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog> 
         <v-row class="d-flex justify-content-between">
+          
           <v-col md="3" lg="3" sm="12">
             <v-btn :loading="loadingRecherche" color="primary" depressed  outlined @click="submitForm">
               Lancer la recherche
+            </v-btn>
+          </v-col>
+          <v-col md="3" lg="3" sm="12">
+            <v-btn color="primary" depressed  @click="dialog=true">
+              Envoyer un message
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
@@ -109,12 +152,12 @@
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
-            <v-btn :loading="loadingTout" text @click="resetInfoElecteur" outlined color="green">Afficher tout</v-btn>
+            <v-btn :loading="loadingTout" text @click="resetInfoElecteur" color="green">Afficher toute la liste</v-btn>
           </v-col>
           
           <!-- <v-col md="3" lg="3" sm="12">
-            <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddParrainage">
-              Ajouter des parrainages
+            <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddannuaire">
+              Ajouter des membres
             </v-btn>
           </v-col> -->
         </v-row>
@@ -307,10 +350,12 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     mounted: function() {
       this.getRegions()
+      this.getTypeMilitant()
     },
     computed: {
       ...mapGetters({
-      listregions: 'regions/listregions',    
+      listregions: 'regions/listregions', 
+      listannuaires: 'annuaires/listannuaires',   
       }),
       sexe_cedeaoRules() {
           return [
@@ -389,18 +434,32 @@ import { mapMutations, mapGetters } from 'vuex'
             return 'Veuillez saisir un chiffre valide';
           },
         ]
+      },
+      messageRules() {
+          return [
+          v  => {
+            if (!v.trim()) return true;                                                              
+            return 'Veuillez saisir un message';
+          },
+        ]
       }
+
       
 
     },
     data: () => ({
+      dialog:false,
+     loadingSms:false,
       listcommunes:[],
       listdepartements:[],
       listregions:[],
+      listtype_militants:[],
 
       commune:null,
       departement:null,
       region:null,
+
+      message:'',
 
       valid: true,
       loading:false,
@@ -420,21 +479,11 @@ import { mapMutations, mapGetters } from 'vuex'
         codeControle:"",
       },
       model: {
-        numero_cedeao:'',
         prenom:'',
         nom:'',
-        date_naissance:'',
-        lieu_naissance:'',
-        taille:'',
-        sexe:'',
-        numero_electeur:'',
-        centre_vote:'',
-        bureau_vote:'',
-        numero_cin:'',
+        
         telephone:'',
-        prenom_responsable:'',
-        nom_responsable:'',
-        telephone_responsable:'',
+        type_militant:'',
         region:'',
         departement:'',
         commune:''
@@ -473,6 +522,17 @@ import { mapMutations, mapGetters } from 'vuex'
           console.log('Requette envoyé ')
         });
       },
+      async getTypeMilitant(){
+        this.$msasApi.$get('type_militants')
+        .then(async (response) => { 
+          console.log('Données type militant reçu+++++++++++',response)
+          this.listtype_militants=response.data
+          }).catch((error) => {
+              console.log('Code error ++++++: ', error?.response?.data?.message)
+          }).finally(() => {
+          console.log('Requette envoyé ')
+        });
+      },
       async changeRegion(value) {
         console.log(value?.departements)
         this.model.departement= ''
@@ -490,6 +550,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeCommune(value) {   
         this.model.commune = value.nom_commune 
+      },
+      async changeTypeMilitant(value) {   
+        this.model.type_militant = value.libelle
       },
       moveToCodeRegion_cedeao(value) {
         if (value.length == 1) {
@@ -530,31 +593,19 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('FormData ++++++ : ',this.model)
 
         let formData = new FormData();
-
-        formData.append("numero_cedeao",this.model.numero_cedeao)
         formData.append("prenom",this.model.prenom)
-        formData.append("nom",this.model.nom)
-        formData.append("date_naissance",this.model.date_naissance)
-        formData.append("lieu_naissance",this.model.lieu_naissance)
-        formData.append("taille",this.model.taille)
-        formData.append("sexe",this.model.sexe)
-        formData.append("numero_electeur",this.model.numero_electeur)
-        formData.append("centre_vote",this.model.centre_vote)
-        formData.append("bureau_vote",this.model.bureau_vote)
-        formData.append("numero_cin",this.model.numero_cin)
+        formData.append("nom",this.model.nom)      
         formData.append("telephone",this.model.telephone)
-        formData.append("prenom_responsable",this.model.prenom_responsable)
-        formData.append("nom_responsable",this.model.nom_responsable)
-        formData.append("telephone_responsable",this.model.telephone_responsable)
+        formData.append("type_militant",this.model.type_militant)
         formData.append("region",this.model.region?this.model.region:'')
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
-       validation && this.$msasApi.post('/recherche_avance_parrainages',formData)
+       validation && this.$msasApi.post('/recherche_avance_annuaires',formData)
           .then((response) => {
             console.log('Donées reçus ++++++: ',response.data.data)
-           // this.listparrainages=response.data.data
-            this.$store.commit('parrainages/initlist',response.data.data)
+           // this.listannuaires=response.data.data
+            this.$store.commit('annuaires/initlist',response.data.data)
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -576,36 +627,25 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let formData = new FormData();
 
-        formData.append("numero_cedeao",this.model.numero_cedeao)
         formData.append("prenom",this.model.prenom)
         formData.append("nom",this.model.nom)
-        formData.append("date_naissance",this.model.date_naissance)
-        formData.append("lieu_naissance",this.model.lieu_naissance)
-        formData.append("taille",this.model.taille)
-        formData.append("sexe",this.model.sexe)
-        formData.append("numero_electeur",this.model.numero_electeur)
-        formData.append("centre_vote",this.model.centre_vote)
-        formData.append("bureau_vote",this.model.bureau_vote)
-        formData.append("numero_cin",this.model.numero_cin)
         formData.append("telephone",this.model.telephone)
-        formData.append("prenom_responsable",this.model.prenom_responsable)
-        formData.append("nom_responsable",this.model.nom_responsable)
-        formData.append("telephone_responsable",this.model.telephone_responsable)
+        formData.append("type_militant",this.model.type_militant)
         formData.append("region",this.model.region)
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
-       validation && this.$msasApi.post('/export_csv_parrainages',formData)
+       validation && this.$msasApi.post('/export_csv_annuaires',formData)
           .then((response) => {
             console.log('Donées reçus ++++++: ',response.data.data)
-           // this.listparrainages=response.data.data
-            //this.$store.commit('parrainages/initlist',response.data.data)
+           // this.listannuaires=response.data.data
+            //this.$store.commit('annuaires/initlist',response.data.data)
             console.log('Données reçus++++++++++++',response.data)
             var fileURL = window.URL.createObjectURL(new Blob(["\ufeff",response.data]));
             var fileLink = document.createElement('a');
           
             fileLink.href = fileURL;
-            fileLink.setAttribute('download', 'parrainages.csv');
+            fileLink.setAttribute('download', 'annuaires.csv');
             document.body.appendChild(fileLink);
           
             fileLink.click();
@@ -619,32 +659,57 @@ import { mapMutations, mapGetters } from 'vuex'
         });
         
       },
+      sendSMS () {
+        if(this.listannuaires.length){
+          this.loadingSms=true
+
+          let validation = this.$refs.form.validate()
+
+          //this.model.numero_cedeao = this.modelCedeao.sexe+this.modelCedeao.codeRegion+this.modelCedeao.annee+this.modelCedeao.mois+this.modelCedeao.jour+this.modelCedeao.codeGenere+this.modelCedeao.codeControle
+          console.log('FormData ++++++ : ',this.model)
+
+          let formData = new FormData();
+
+          formData.append("prenom",this.model.prenom)
+          formData.append("nom",this.model.nom)
+          formData.append("telephone",this.model.telephone)
+          formData.append("type_militant",this.model.type_militant)
+          formData.append("region",this.model.region)
+          formData.append("departement",this.model.departement)
+          formData.append("commune",this.model.commune)
+          formData.append("message",this.message)
+
+        validation && this.$msasApi.post('/sendSms',formData)
+            .then((response) => {
+              console.log('Donées reçus ++++++: ',response.data.data)
+            
+              this.$store.dispatch('toast/getMessage',{type:'success',text:'Votre message a été envoyé avec succès'})
+            })
+            .catch((error) => {
+                console.log('Code error ++++++: ', error)
+                this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
+            }).finally(() => {
+              this.loadingSms = false
+              this.dialog = false;
+              console.log('Requette envoyé ')
+          });
+        }
+        else{
+          alert("Vous ne pouvez pas envoyer un message car la liste est vide")
+        }
+        
+        
+      },
       resetInfoElecteur () {
         this.loadingTout = true
-        this.model.numero_cedeao = ""
         this.model.prenom = ""
         this.model.nom = ""
-        this.model.date_naissance = ""
-        this.model.lieu_naissance = ""
-        this.model.taille = ""
-        this.model.sexe = ""
-        this.model.numero_electeur = ""
-        this.model.centre_vote = ""
-        this.model.bureau_vote = ""
-        this.model.numero_cin = ""
+        
         this.model.telephone = ""
+        this.model.type_militant = ""
         this.model.region = ""
         this.model.departement= ""
         this.model.commune = ""
-
-        this.modelCedeao.sexe=""
-        this.modelCedeao.codeRegion =""
-        this.modelCedeao.annee =""
-        this.modelCedeao.mois =""
-        this.modelCedeao.jour =""
-        this.modelCedeao.codeGenere =""
-        this.modelCedeao.codeControle =""
-
         this.submitForm()
       },
       resetForm () {
@@ -653,8 +718,8 @@ import { mapMutations, mapGetters } from 'vuex'
       resetValidationForm () {
         this.$refs.form.resetValidation()
       },
-      GotoAddParrainage() {
-        this.$router.push('/parrainages/addParrainage');
+      GotoAddannuaire() {
+        this.$router.push('/annuaires/addAnnuaire');
       }
     }
   }

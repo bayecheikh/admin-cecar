@@ -4,14 +4,12 @@
       <v-row>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="libelle"
+            label="Libelle"
             outlined dense
             v-model="model.libelle"
             :rules="rules.nameRules"
-
           ></v-text-field>
         </v-col>
-        
       </v-row>
       <v-btn
       :loading="loading"
@@ -28,18 +26,10 @@
 
 <script>
 import Notification from '@/components/Notification'
-import { mapMutations, mapGetters } from 'vuex'
   export default {
     components: {
       Notification
     },
-    mounted: function() {
-      this.model.id = this.detailtype_annee.id
-      this.model.libelle = this.detailtype_annee.libelle
-    },
-    computed: mapGetters({
-      detailtype_annee:'type_annees/detailtype_annee'
-    }),
     data: () => ({
       loading: false,
       message:null,
@@ -48,17 +38,16 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedItem: 0,
       valid: true,
       model: {
-        id:null,
-        name: '',
-        description: ''
+        libelle: '',
+        slug: '',
       },
       rules:{
         nameRules: [
-          v => !!v || 'Champ obligatoire',
-          v => (v && v.length <= 100) || 'Ce champ doit etre inférieur à 100 caratères',
+          v => !!v || 'Libelle est obligatoire',
+          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
         ],
         descriptionRules: [
-          v => !!v || 'Champ est obligatoire'
+          v => !!v || 'Description est obligatoire'
         ],
       },
     }),
@@ -67,12 +56,13 @@ import { mapMutations, mapGetters } from 'vuex'
         this.loading = true;
         let validation = this.$refs.form.validate()
         console.log('Donées formulaire ++++++ : ',{...this.model})
-        this.loading = false;
+        this.slug = this.slugify(this.libelle)
         
-        validation && this.$msasApi.put('/type_annees/'+this.model.id, {...this.model})
+        validation && this.$msasApi.post('/type_militants', {...this.model,slug:this.slug})
           .then((res) => {    
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
-            this.$router.push('/type_annees');
+            this.$router.push('/type_militants');
+            
           })
           .catch((error) => {
                console.log('Code error ++++++: ', error)
@@ -81,6 +71,14 @@ import { mapMutations, mapGetters } from 'vuex'
             this.loading = false;
             console.log('Requette envoyé ')
         });
+      },
+      slugify(str) {
+        str = str.replace(/^\s+|\s+$/g, ''); // trim leading/trailing white space
+        str = str.toLowerCase(); // convert string to lowercase
+        str = str.replace(/[^a-z0-9 -]/g, '') // remove any non-alphanumeric characters
+                .replace(/\s+/g, '-') // replace spaces with hyphens
+                .replace(/-+/g, '-'); // remove consecutive hyphens
+        return str;
       },
       resetForm () {
         this.$refs.form.reset()

@@ -38,7 +38,8 @@ import Notification from '@/components/Notification'
       selectedItem: 0,
       valid: true,
       model: {
-        libelle: ''
+        libelle: '',
+        slug: '',
       },
       rules:{
         nameRules: [
@@ -55,11 +56,29 @@ import Notification from '@/components/Notification'
         this.loading = true;
         let validation = this.$refs.form.validate()
         console.log('Donées formulaire ++++++ : ',{...this.model})
+        var slug = "";
+        // Change to lower case
+        var titleLower = this.model.libelle.toLowerCase();
+        slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+        // Letter "a"
+        slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+        // Letter "o"
+        slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+        // Letter "u"
+        slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+        // Letter "d"
+        slug = slug.replace(/đ/gi, 'd');
+        // Trim the last whitespace
+        slug = slug.replace(/\s*$/g, '');
+        // Change whitespace to "-"
+        slug = slug.replace(/\s+/g, '-');
+
+        this.slug = slug
         
-        validation && this.$msasApi.post('/type_annees', {...this.model})
+        validation && this.$msasApi.post('/type_militants', {...this.model,slug:slug})
           .then((res) => {    
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
-            this.$router.push('/type_annees');
+            this.$router.push('/type_militants');
             
           })
           .catch((error) => {
@@ -69,6 +88,27 @@ import Notification from '@/components/Notification'
             this.loading = false;
             console.log('Requette envoyé ')
         });
+      },
+      sanitizeTitle: function(title) {
+        var slug = "";
+        // Change to lower case
+        var titleLower = title.toLowerCase();
+        // Letter "e"
+        slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+        // Letter "a"
+        slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+        // Letter "o"
+        slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+        // Letter "u"
+        slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+        // Letter "d"
+        slug = slug.replace(/đ/gi, 'd');
+        // Trim the last whitespace
+        slug = slug.replace(/\s*$/g, '');
+        // Change whitespace to "-"
+        slug = slug.replace(/\s+/g, '-');
+        
+        return slug;
       },
       resetForm () {
         this.$refs.form.reset()
