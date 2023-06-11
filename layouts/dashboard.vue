@@ -119,7 +119,7 @@
     <v-footer height="auto" class="white pa-3">
       <span class="caption">&copy; {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
-      <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} DER/FJ</span>
+      <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} REWMI</span>
     </v-footer>
   </v-app>
 </template>

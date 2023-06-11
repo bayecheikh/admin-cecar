@@ -1099,9 +1099,9 @@ import { mapMutations, mapGetters } from 'vuex'
       ],
 
       listsecteurs : [
-        {id:1,nom_secteur:'Suivi des dossiers financés par la DER/FJ'},
+        {id:1,nom_secteur:'Suivi des dossiers financés par la REWMI'},
         {id:2,nom_secteur:'Suivi des décaissements au niveau des IFP'},
-        {id:3,nom_secteur:'Formation et accompagnement des bénéficiaires de la DER/FJ'},
+        {id:3,nom_secteur:'Formation et accompagnement des bénéficiaires de la REWMI'},
         {id:4,nom_secteur:'Situation des recouvrements au niveau départemental'},
         {id:5,nom_secteur:'Organisation des sessions d\'animation économique'},
         {id:6,nom_secteur:'Activité de représentation dans les comités'},
