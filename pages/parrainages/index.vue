@@ -29,8 +29,8 @@ import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
-       // return redirect('/')
+      if(!$hasPermission('gerer-parrainages')){
+       return redirect('/')
       }
     },
     components: {

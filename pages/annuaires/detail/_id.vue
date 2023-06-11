@@ -29,7 +29,7 @@ import InfoAnnuaire from '@/components/annuaires/detail/InfoAnnuaire';
     },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-annuaires')){
-       // return redirect('/')
+       return redirect('/')
       }
     },
     mounted: function() {

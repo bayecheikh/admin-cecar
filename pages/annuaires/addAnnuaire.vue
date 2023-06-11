@@ -20,8 +20,8 @@ import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
-       // return redirect('/')
+      if(!$hasPermission('gerer-annuaires')){
+       return redirect('/')
       }
     },
     components: {
@@ -39,7 +39,7 @@ import { mapActions} from 'vuex'
             to: '/annuaires',
             exact: true
           },{
-            text: 'Ajouter des membres',
+            text: 'Ajouter des contacts',
             disabled: true,
             to: '/annuaires',
             exact: true

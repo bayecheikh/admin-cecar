@@ -5,7 +5,7 @@
     </div>  -->
     <div class="custom-container mt-3 d-flex flex-row-reverse">
           <v-btn depressed class="mr-0 text-white " color="green" @click="GotoAddannuaire">
-            Ajouter des membres
+            Ajouter des contacts
           </v-btn>     
     </div> 
     <div class="custom-container mt-3">
@@ -30,8 +30,8 @@ import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
-       // return redirect('/')
+      if(!$hasPermission('gerer-annuaires')){
+       return redirect('/')
       }
     },
     components: {

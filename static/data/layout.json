@@ -18,13 +18,7 @@
       "icon": "mdi-account-group-outline",
       "href": "/annuaires",
       "title": "Annuaires",
-      "name": "gerer-parrainages"
-    },
-    {
-      "icon": "mdi-account-group-outline",
-      "href": "/type_militants",
-      "title": "Types de membre",
-      "name": "gerer-parrainages"
+      "name": "gerer-annuaires"
     },
     {
       "icon": "mdi-account-group-outline",
@@ -42,6 +36,12 @@
       "icon": "mdi-account-lock-outline",
       "href": "/permissions",
       "title": "Permissions",
+      "name": "gerer-parametres"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/parametres",
+      "title": "Parametres",
       "name": "gerer-parametres"
     }
   ]

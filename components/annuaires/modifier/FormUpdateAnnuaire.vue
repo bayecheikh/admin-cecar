@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
-      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <!-- <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col lg="4" md="4" sm="12" class="py-0 my-0">
             <v-autocomplete
@@ -49,7 +49,7 @@
             </v-autocomplete>
           </v-col>
         </v-row>
-      </v-card>
+      </v-card> -->
       <v-card class="mx-auto mb-5 pl-7 pt-7 pr-7 pb-5">
         <div class="custom-ligne-bloc">       
             <v-row>
@@ -111,6 +111,7 @@ import { mapMutations, mapGetters } from 'vuex'
       
     },
     mounted: function() {
+      this.getDetail(this.$nuxt._route.params.id)
       this.getRegions()
       this.getTypeMilitant()
       //this.$refs.prenom_responsable.focus()
@@ -422,6 +423,7 @@ import { mapMutations, mapGetters } from 'vuex'
         codeGenere:""
       },
       model: {
+        id:null,
         prenom:'',
         nom:'',        
         telephone:'',
@@ -453,6 +455,34 @@ import { mapMutations, mapGetters } from 'vuex'
       }
     }),
     methods: {
+      getDetail(id){
+          this.progress=true
+          this.$msasApi.$get('/annuaires/'+id)
+        .then(async (response) => {
+            this.$store.dispatch('annuaires/getDetail',response.data)
+            this.$store.dispatch('annuaires/getDetail',response.data)
+            this.model.id = response.data.id
+            this.model.nom = response.data.nom
+            this.model.prenom = response.data.prenom
+            this.model.telephone = response.data.telephone
+            this.model.region = response.data.region
+            this.model.departement = response.data.departement
+            this.model.commune = response.data.commune
+            this.model.type_militant = response.data.type_militant
+
+            let departements = this.listregions.filter((e) =>(e.nom_region===response.data.region))[0].departements
+            this.listdepartements = departements
+
+            //let communes = departements.filter((e) =>(e.nom_departement===response.data.departement))[0].communes
+            
+        }).catch((error) => {
+             this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé ')
+        });
+        //console.log('total items++++++++++',this.paginationannuaire)
+      },
       async getRegions(){
         this.$msasApi.$get('regions')
         .then(async (response) => { 
@@ -659,6 +689,8 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let formData = new FormData();
 
+        formData.append("id",this.model.id)
+        formData.append("_method","put")
         formData.append("prenom",this.model.prenom)
         formData.append("nom",this.model.nom)
         
@@ -669,11 +701,12 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("departement",this.model.departement)
         formData.append("commune",this.model.commune)
 
-       validation && this.$msasApi.post('/annuaires',formData)
+       validation && this.$msasApi.post('/annuaires/'+this.model.id,formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-            this.resetInfoElecteur()
+            this.$router.push('/annuaires')
+            //this.resetInfoElecteur()
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)

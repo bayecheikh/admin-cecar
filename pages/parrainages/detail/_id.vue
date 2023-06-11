@@ -29,7 +29,7 @@ import InfoParrainage from '@/components/parrainages/detail/InfoParrainage';
     },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-parrainages')){
-       // return redirect('/')
+       return redirect('/')
       }
     },
     mounted: function() {

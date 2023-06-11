@@ -21,7 +21,7 @@ import FormUpdateParrainage from '@/components/parrainages/modifier/FormUpdatePa
       FormUpdateParrainage
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
+      if(!$hasPermission('gerer-parrainages')){
         return redirect('/')
       }
     },

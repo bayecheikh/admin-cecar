@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Ajouter des membres
+          Ajouter des contacts
         </v-btn>
       </div>
     </div>

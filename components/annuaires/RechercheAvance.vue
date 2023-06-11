@@ -107,7 +107,7 @@
         <v-dialog v-model="dialog" width="500">
             
             <v-card>
-              <v-card-title class="text-h5"> Veillez saisir votre message</v-card-title>
+              <v-card-title class="text-h5"> Veuillez saisir votre message (pour {{ listannuaires.length }} contacts)</v-card-title>
               <v-card-text>
                 <v-col md="12" lg="12" sm="12">
                     <v-textarea
@@ -138,17 +138,17 @@
           
           <v-col md="3" lg="3" sm="12">
             <v-btn :loading="loadingRecherche" color="primary" depressed  outlined @click="submitForm">
-              Lancer la recherche
+              <v-icon>mdi-magnify</v-icon> Lancer la recherche
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
             <v-btn color="primary" depressed  @click="dialog=true">
-              Envoyer un message
+              <v-icon>mdi-cellphone-message</v-icon> Envoyer un message
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
-            <v-btn :loading="loadingExport" depressed  color="secondary" outlined @click="ExportCSV">
-              Exporter tout en excel
+            <v-btn :loading="loadingExport" depressed  color="blue" outlined @click="ExportCSV">
+              <v-icon>mdi-application-export</v-icon> Exporter tout en excel
             </v-btn>
           </v-col>
           <v-col md="3" lg="3" sm="12">
@@ -157,7 +157,7 @@
           
           <!-- <v-col md="3" lg="3" sm="12">
             <v-btn depressed class="mr-4 text-white" color="green" @click="GotoAddannuaire">
-              Ajouter des membres
+              Ajouter des contacts
             </v-btn>
           </v-col> -->
         </v-row>

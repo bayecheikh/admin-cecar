@@ -21,7 +21,7 @@ import FormUpdateAnnuaire from '@/components/annuaires/modifier/FormUpdateAnnuai
       FormUpdateAnnuaire
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
+      if(!$hasPermission('gerer-annuaires')){
         return redirect('/')
       }
     },
