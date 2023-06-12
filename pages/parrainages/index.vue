@@ -52,8 +52,8 @@ import { mapActions} from 'vuex'
       }
     },
     methods:{
-      GotoAddannuaire() {
-        this.$router.push('/annuaires/addAnnuaire');
+      GotoAddParrainage() {
+        this.$router.push('/parrainages/addParrainage');
       }
     }
 
