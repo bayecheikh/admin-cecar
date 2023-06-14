@@ -231,21 +231,23 @@ html {
   color: grey;
   min-height: 140px;
 }
+
 .bg-marron:hover {
   background-color: #fb4c07;
   color: #fff !important;
 }
 .bg-marron-2 {
-  background-color: #fb4c0712;
+  background-color: #fb4c07;
   border-radius: 5px;
   padding: 30px;
-  color: grey;
-  min-height: 140px;
-  border: solid;
+  color: #fff;
+  min-height: 72px;
+  border: solid 2px #000;
 }
 .bg-marron-2:hover {
   border: solid 2px;
   border-color: #fb4c07;
+  background-color: #000;
 }
 .color-white{
   color: #fff;

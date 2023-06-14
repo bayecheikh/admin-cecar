@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@amcharts/amcharts4-geodata@^4.1.26":
+  "integrity" "sha512-QbApahAJyKnt4kBfg93gmi4IIwV+B0ZITBL+e0X1vCYC/r2WrRTzojzUlbhihn0r5VI7tNqswvfWRms5jTfrxQ=="
+  "resolved" "https://registry.npmjs.org/@amcharts/amcharts4-geodata/-/amcharts4-geodata-4.1.26.tgz"
+  "version" "4.1.26"
+
 "@amcharts/amcharts4@^4.10.33":
   "integrity" "sha512-v4y72nepV/GXEF0UaT7Yl3VuFCwRyCB72+Zo55UpnXCGGukH+hXwFDEBoFav+zF0BDna6/JrCp4S7OkoWRWgNQ=="
   "resolved" "https://registry.npmjs.org/@amcharts/amcharts4/-/amcharts4-4.10.34.tgz"
