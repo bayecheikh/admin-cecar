@@ -107,11 +107,19 @@
         <v-dialog v-model="dialog" width="500">
             
             <v-card>
-              <v-card-title class="text-h5"> Veuillez saisir votre message (pour {{ listannuaires.length }} contacts)</v-card-title>
+              <v-card-title class=""> {{ listannuaires.length }} contact(s) selectionn(és)</v-card-title>
               <v-card-text>
+              <v-col md="12" lg="12" sm="12">
+                <v-text-field
+                  label="Expéditeur"
+                  outlined dense
+                  v-model="expediteur"
+                  :rules="rules.prenomRules"
+                ></v-text-field>
+              </v-col>
                 <v-col md="12" lg="12" sm="12">
                     <v-textarea
-                      label=""
+                      label="Message"
                       outlined
                       dense
                       v-model="message"
@@ -460,6 +468,7 @@ import { mapMutations, mapGetters } from 'vuex'
       region:null,
 
       message:'',
+      expediteur:'PARTI REWMI',
 
       valid: true,
       loading:false,
@@ -677,6 +686,7 @@ import { mapMutations, mapGetters } from 'vuex'
           formData.append("region",this.model.region)
           formData.append("departement",this.model.departement)
           formData.append("commune",this.model.commune)
+          formData.append("expediteur",this.expediteur)
           formData.append("message",this.message)
 
         validation && this.$msasApi.post('/sendSms',formData)
