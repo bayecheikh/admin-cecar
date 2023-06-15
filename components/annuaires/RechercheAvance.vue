@@ -115,6 +115,7 @@
                   outlined dense
                   v-model="expediteur"
                   :rules="rules.prenomRules"
+                  readonly
                 ></v-text-field>
               </v-col>
                 <v-col md="12" lg="12" sm="12">
