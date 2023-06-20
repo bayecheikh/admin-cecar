@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
-      <!-- <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col lg="4" md="4" sm="12" class="py-0 my-0">
             <v-autocomplete
@@ -49,7 +49,7 @@
             </v-autocomplete>
           </v-col>
         </v-row>
-      </v-card> -->
+      </v-card>
       <v-card class="mx-auto mb-5 pl-7 pt-7 pr-7 pb-5">
         <div class="custom-ligne-bloc">       
             <v-row>
@@ -465,13 +465,15 @@ import { mapMutations, mapGetters } from 'vuex'
             this.model.nom = response.data.nom
             this.model.prenom = response.data.prenom
             this.model.telephone = response.data.telephone
+
+            this.listdepartements = [{nom_departement:response.data.departement}]
+            this.listcommunes = [{nom_commune:response.data.commune}]
             this.model.region = response.data.region
             this.model.departement = response.data.departement
             this.model.commune = response.data.commune
             this.model.type_militant = response.data.type_militant
 
-            let departements = this.listregions.filter((e) =>(e.nom_region===response.data.region))[0].departements
-            this.listdepartements = departements
+          
 
             //let communes = departements.filter((e) =>(e.nom_departement===response.data.departement))[0].communes
             
