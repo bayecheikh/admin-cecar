@@ -469,7 +469,7 @@ import { mapMutations, mapGetters } from 'vuex'
       region:null,
 
       message:'',
-      expediteur:'Tourné Rewmi',
+      expediteur:'TOURNE REWMI',
 
       valid: true,
       loading:false,
