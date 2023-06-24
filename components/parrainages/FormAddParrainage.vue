@@ -321,7 +321,7 @@
                 
                   v-model="modelCin.codeGenere"
                   :rules="codeGenere_cinRules"
-                  maxlength="5"
+                  maxlength="6"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -561,7 +561,7 @@ import { mapMutations, mapGetters } from 'vuex'
           v  => {
             console.log(v[0])
             if (!v.trim() || v=='') return true;
-            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && v.length == 5) return true;                  
+            if (!isNaN(parseFloat(v)) && parseFloat(v) >= 0 && (v.length == 5 || v.length == 6)) return true;                  
                                               
             return 'Veuillez saisir un chiffre valide';
           },
